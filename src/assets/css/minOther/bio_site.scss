@@ -1,0 +1,38 @@
+.bio_site {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .site_title {
+        width: 100%;
+        text-align: center;
+        line-height: rem(150);
+        font-size: rem(54);
+        position: relative;
+        span {
+            position: absolute;
+            left: rem(58);
+        }
+    }
+    .site_list {
+        width: 100%;
+        flex: 1;
+        overflow: auto;
+        .site_con {
+            width: 100%;
+        }
+    }
+    .set_site {
+        width: 100%;
+        padding: rem(41);
+        div {
+            width: 100%;
+            text-align: center;
+            font-size: rem(40);
+            line-height: rem(105);
+            border: 1px solid #ccc;
+            border-radius: rem(15);
+            color: blue;
+        }
+    }
+}

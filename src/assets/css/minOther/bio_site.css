@@ -1,0 +1,44 @@
+.bio_site {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bio_site .site_title {
+  width: 100%;
+  text-align: center;
+  line-height: rem(150);
+  font-size: rem(54);
+  position: relative;
+}
+
+.bio_site .site_title span {
+  position: absolute;
+  left: rem(58);
+}
+
+.bio_site .site_list {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.bio_site .site_list .site_con {
+  width: 100%;
+}
+
+.bio_site .set_site {
+  width: 100%;
+  padding: rem(41);
+}
+
+.bio_site .set_site div {
+  width: 100%;
+  text-align: center;
+  font-size: rem(40);
+  line-height: rem(105);
+  border: 1px solid #ccc;
+  border-radius: rem(15);
+  color: blue;
+}
