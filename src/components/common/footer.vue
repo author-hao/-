@@ -12,7 +12,7 @@
           <li>
              <router-link to='/cart'> <i class="iconfont icon-gouwuche"></i>
              <span>购物车 </span></router-link>
-             <strong>2</strong>
+             <strong v-if='cartNum' >{{ cartNum }}</strong>
           </li>
           <li>
               <router-link to='/personal'><i class="iconfont icon-geren"></i>
@@ -25,7 +25,11 @@
 <script>
 import '@/assets/font/iconfont.css'
 export default {
-
+    computed: {
+        cartNum () {
+            return this.$store.state.cart_count
+        }
+    }
 }
 </script>
 

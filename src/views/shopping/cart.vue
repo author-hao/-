@@ -17,7 +17,7 @@
                         <span>
                             <i class="check"></i>
                         </span>
-                        <img src="../../../static/images/img_04.png" alt="">
+                        <img :src="item.pic" alt="">
                     </dt>
                     <dd>
                         <h3>连庄收纳盒两件组合装组昂</h3>
@@ -112,7 +112,7 @@ export default {
   data () {
     return {
       isShow: false,
-      cart_data: ['aa'],
+      cart_data: [],
       updelete: false
     }
   },
@@ -122,6 +122,10 @@ export default {
     }
   },
   mounted () {
+      // 获取用户加入购物车的数据
+      this.cart_data = this.$store.state.listData
+
+
     setTimeout(() => {
       this.$nextTick(() => {
         this.scroll = new BScroll(this.$refs.myCart, {

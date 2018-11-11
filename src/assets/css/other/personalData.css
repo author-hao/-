@@ -22,6 +22,27 @@
   background: #c6b692;
 }
 
+.personalData_con .personalData_wapper .personalData .head_portrait div {
+  width: 100%;
+  padding-top: rem(145);
+  padding-left: rem(88);
+  display: flex;
+}
+
+.personalData_con .personalData_wapper .personalData .head_portrait div p {
+  width: rem(218);
+  height: rem(218);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+
+.personalData_con .personalData_wapper .personalData .head_portrait div a {
+  font-size: rem(40);
+  margin-top: rem(80);
+  margin-left: rem(50);
+  color: blue;
+}
+
 .personalData_con .personalData_wapper .personalData .head_portrait dl {
   width: 100%;
   padding-top: rem(145);

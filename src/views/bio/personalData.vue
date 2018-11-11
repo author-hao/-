@@ -3,8 +3,16 @@
   <div class="personalData_wapper" ref='personalData_wapper'>
   <div class="personalData">
       <header class="head_portrait ">
-          <dl>
-              <dt><img src="../../../static/images/img_06.png" alt=""></dt>
+            <div v-if='showLogin'>
+                <p></p>
+                <router-link to='/login'>
+                    登录
+                </router-link>
+            </div>
+          <dl v-else>
+              <dt>
+                  <img src="../../../static/images/img_06.png" alt="">
+              </dt>
               <dd>
                   <p>星辰闪烁</p>
                   <span @click='jifen'>积分：20</span>
@@ -81,12 +89,19 @@
 import '@/assets/font_iocn/iconfont.css'
 import BScroll from 'better-scroll'
 export default {
+  data () {
+    return {
+      showLogin: true
+    }
+  },
   created () {
     setTimeout(() => {
       this.scroll = new BScroll(this.$refs.personalData_wapper, {
         click: true
       })
     }, 10)
+    let cookie =  document.cookie
+    console.log(cookie)
   },
   methods: {
     jifen () { // 签到页

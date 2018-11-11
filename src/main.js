@@ -12,7 +12,7 @@ import 'swiper/dist/js/swiper.min.js'
 import './assets/css/app.scss'
 import VueScroller from 'vue-scroller'
 import axios from 'axios'
-
+import store from './store/store' // Vuex
 Vue.use(VueScroller)
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
@@ -43,6 +43,7 @@ axios.interceptors.response.use(function (response) {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'

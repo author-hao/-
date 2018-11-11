@@ -7,6 +7,7 @@ import Classification from '@/views/sort/classification'
 import Cart from '@/views/shopping/cart'
 import PersonalData from '@/views/bio/personalData'
 import Details from '@/components/common/details'
+import BargainDetail from '@/components/common/bargain_detail'
 
 import Signin from '@/components/modelu/signin'
 import ConfirmOrder from '@/components/order/confirm_order'
@@ -21,8 +22,7 @@ import Hascompleted from '@/components/order/list_detail/hascompleted'
 import Bargain from '@/components/modelu/bargain'
 import Biobalance from '@/components/bio_resources/bio_balance'
 import BioSite from '@/components/bio_resources/bio_site'
-
-
+import Login from '@/components/bio_resources/login'
 
 Vue.use(Router)
 
@@ -37,20 +37,23 @@ export default new Router({
       children: [
         {
           path: '/list', // 首页列表
-
-          component: List
+          component: List,
+          meta: { keepAlive: true }
         },
         {
           path: '/classification', // 分类
-          component: Classification
+          component: Classification,
+          meta: { keepAlive: true }
         },
         {
           path: '/cart', // 购物车
-          component: Cart
+          component: Cart,
+          meta: { keepAlive: true }
         },
         {
           path: '/personal', // 个人中心
-          component: PersonalData
+          component: PersonalData,
+          meta: { keepAlive: true }
         }
       ]
     },
@@ -61,6 +64,10 @@ export default new Router({
     {
       path: '/details/:id?', // 商品详情页
       component: Details
+    },
+    {
+      path: '/bargaindetail/:id?', // 砍价商品详情页
+      component: BargainDetail
     },
     {
       path: '/signin', // 签到页
@@ -116,6 +123,10 @@ export default new Router({
     {
       path: '/site', // 地址
       component: BioSite
+    },
+    {
+      path: '/login', // 登录
+      component: Login
     }
   ]
 })

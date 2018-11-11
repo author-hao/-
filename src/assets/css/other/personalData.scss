@@ -15,6 +15,25 @@
         width: 100%;
         height: rem(502);
         background: #c6b692;
+        div  {
+          width: 100%;
+          padding-top: rem(145);
+          padding-left: rem(88);
+          display: flex;
+
+          p {
+            width: rem(218);
+            height: rem(218);
+            border: 1px solid #ccc;
+            border-radius: 50%;
+          }
+          a {
+              font-size: rem(40);
+              margin-top: rem(80);
+              margin-left: rem(50);
+              color: blue;
+          }
+        }
         dl {
             width: 100%;
             padding-top: rem(145);

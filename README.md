@@ -1,4 +1,4 @@
-# jiyun-mall
+# yanxuan-item
 
 > A Vue.js project
 

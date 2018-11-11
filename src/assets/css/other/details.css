@@ -3,10 +3,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .details .details_title {
+  box-sizing: border-box;
   width: 100%;
+  height: 2.22222rem;
   line-height: 2.22222rem;
   padding: 0.37037rem 0.38519rem;
   z-index: 5;
@@ -26,7 +29,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  line-height: 1.48148rem;
+  line-height: 1.25926rem;
   text-align: center;
   color: #3d3d3d;
   border-radius: 100%;
@@ -35,6 +38,7 @@
 
 .details .details_warpper {
   width: 100%;
+  height: 100%;
   flex: 1;
   overflow: auto;
 }
@@ -52,12 +56,12 @@
   list-style: none;
 }
 
-.details .details_warpper .details_con .swiper-container > ul li {
+.details .details_warpper .details_con .swiper-container > ul > li {
   width: 100%;
   font-size: 0.44444rem;
 }
 
-.details .details_warpper .details_con .swiper-container > ul li img {
+.details .details_warpper .details_con .swiper-container > ul > li img {
   width: 100%;
 }
 
@@ -67,7 +71,7 @@
   padding: 0.65185rem;
 }
 
-.details .details_warpper .details_con .details_data h3 {
+.details .details_warpper .details_con .details_data > h3 {
   width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -76,7 +80,7 @@
   color: #313131;
 }
 
-.details .details_warpper .details_con .details_data p {
+.details .details_warpper .details_con .details_data > p {
   width: 100%;
   margin-top: 0.31111rem;
   white-space: nowrap;
@@ -93,26 +97,166 @@
   justify-content: space-between;
 }
 
-.details .details_warpper .details_con .details_data > ul li:first-child {
+.details .details_warpper .details_con .details_data > ul > li:first-child {
   font-size: 0.62222rem;
   font-weight: 550;
   display: flex;
 }
 
-.details .details_warpper .details_con .details_data > ul li:first-child span:first-child {
+.details .details_warpper .details_con .details_data > ul > li:first-child span:first-child {
   color: #a32821;
 }
 
-.details .details_warpper .details_con .details_data > ul li:first-child span:last-child {
+.details .details_warpper .details_con .details_data > ul > li:first-child span:last-child {
   padding-top: 0.34074rem;
   padding-left: 0.44444rem;
   color: #9b9b9b;
   text-decoration: line-through;
 }
 
-.details .details_warpper .details_con .details_data > ul li:last-child {
+.details .details_warpper .details_con .details_data > ul > li:last-child {
   color: #959595;
   font-size: 0.5037rem;
+}
+
+.details .details_warpper .details_con .pintuan {
+  width: 100%;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 0.65185rem;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > h3 {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.66667rem;
+  color: #313131;
+  padding: 0 0.65185rem;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > p {
+  width: 100%;
+  padding: 0 0.65185rem;
+  margin-top: 0.31111rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.57778rem;
+  color: #999999;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul {
+  width: 100%;
+  display: flex;
+  height: 2.16296rem;
+  margin-top: 1.03704rem;
+  background: #b4272d;
+  justify-content: space-between;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:first-child {
+  padding-left: 0.53333rem;
+  display: flex;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:first-child > div {
+  font-size: 0.59259rem;
+  color: #f8faf9;
+  line-height: 2.16296rem;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:first-child > div > span {
+  font-size: 0.62222rem;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:first-child > p {
+  font-size: 0.5037rem;
+  font-weight: 200;
+  margin-left: 0.44444rem;
+  color: #fafeff;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:first-child > p > span {
+  display: block;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:first-child > p span:first-child {
+  margin-top: 0.37037rem;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:first-child > p span:last-child {
+  text-decoration: line-through;
+  margin-top: 0.23704rem;
+}
+
+.details .details_warpper .details_con .pintuan .details_data2 > ul > li:last-child {
+  color: #fafeff;
+  padding-right: 0.38519rem;
+  font-size: 0.5037rem;
+  line-height: 2.16296rem;
+}
+
+.details .details_warpper .details_con .pintuan .hr {
+  width: 100%;
+  height: 0.37037rem;
+  background: #eef8f7;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath {
+  width: 100%;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath > h3 {
+  width: 100%;
+  line-height: 1.42222rem;
+  font-size: 0.59259rem;
+  padding: 0 0.51852rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath > ol {
+  width: 100%;
+  height: 3.40741rem;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath > ol > li {
+  width: 25%;
+  font-weight: 200;
+  font-size: 0.42963rem;
+  text-align: center;
+  padding: 0 0.66667rem;
+  color: #2c2c2c;
+  padding-top: 0.41481rem;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath > ol > li > i {
+  font-size: 0.94815rem;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath > ol > li > p {
+  padding-top: 0.26667rem;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath .xuanze {
+  width: 100%;
+  height: 1.94074rem;
+  font-size: 0.5037rem;
+  padding: 0 0.14815rem;
+  color: #292929;
+  line-height: 1.94074rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.details .details_warpper .details_con .pintuan .flowpath .xuanze > span {
+  font-size: 0.87407rem;
 }
 
 .details .details_warpper .details_con .content_detail {
@@ -126,7 +270,7 @@
   display: flex;
 }
 
-.details .details_warpper .details_con .content_detail > ul li {
+.details .details_warpper .details_con .content_detail > ul > li {
   font-size: 0.59259rem;
   width: 50%;
   text-align: center;
@@ -142,44 +286,49 @@
   width: 100%;
   padding: 0.19259rem;
   box-sizing: border-box;
+  font-size: 0.44444rem;
 }
 
 .details .details_warpper .details_con #detailContent img {
+  font-size: 0.44444rem;
   max-width: 100%;
+  height: auto;
   box-sizing: border-box;
 }
 
 .details .details_commit {
   width: 100%;
   height: 2.08889rem;
-  z-index: 5;
+  z-index: 10;
+  margin-bottom: -1px;
   background: #fff;
   border-top: 2px solid #dadada;
 }
 
-.details .details_commit ul {
+.details .details_commit > ul {
   list-style: none;
   display: flex;
   font-size: 0.59259rem;
+  background: #fff;
   justify-content: space-between;
 }
 
-.details .details_commit ul .iocn {
+.details .details_commit > ul .iocn {
   margin: 0 0.62222rem;
   line-height: 2.08889rem;
   color: #636363;
 }
 
-.details .details_commit ul .iocn i {
+.details .details_commit > ul .iocn i {
   font-size: 1.06667rem;
   font-weight: bold;
 }
 
-.details .details_commit ul li:nth-child(2) {
+.details .details_commit > ul > li:nth-child(2) {
   position: relative;
 }
 
-.details .details_commit ul li:nth-child(2) span {
+.details .details_commit > ul > li:nth-child(2) span {
   position: absolute;
   top: 0.2963rem;
   right: -0.22222rem;
@@ -194,17 +343,17 @@
   color: #feffec;
 }
 
-.details .details_commit ul li:nth-child(4) {
-  line-height: 2.08889rem;
+.details .details_commit > ul > li:nth-child(4) {
+  line-height: 2.1037rem;
   color: #000;
 }
 
-.details .details_commit ul .btn {
+.details .details_commit > ul > .btn {
   width: 4.62222rem;
   height: 2.08889rem;
 }
 
-.details .details_commit ul .btn button {
+.details .details_commit > ul > .btn > button {
   display: block;
   width: 100%;
   height: 100%;
@@ -212,4 +361,713 @@
   outline: none;
   background: #b4272d;
   color: #fffbff;
+}
+
+.details .kaituanBtn {
+  width: 100%;
+  height: 2.1037rem;
+  background: #fff;
+  z-index: 5;
+  border-top: 1px solid #dedede;
+}
+
+.details .kaituanBtn > ol {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  height: 2.1037rem;
+  background: #fff;
+}
+
+.details .kaituanBtn > ol > li {
+  text-align: center;
+}
+
+.details .kaituanBtn > ol > li:first-child, .details .kaituanBtn > ol li:nth-child(2) {
+  line-height: 2.08889rem;
+  color: #636363;
+}
+
+.details .kaituanBtn > ol > li:first-child i, .details .kaituanBtn > ol li:nth-child(2) i {
+  font-size: 1.06667rem;
+  font-weight: bold;
+  margin: 0.56296rem 0.60741rem;
+}
+
+.details .kaituanBtn > ol > li:nth-child(3) {
+  font-size: 0.59259rem;
+  width: 4.59259rem;
+  color: #030303;
+}
+
+.details .kaituanBtn > ol > li:nth-child(3) span {
+  display: block;
+}
+
+.details .kaituanBtn > ol > li:nth-child(3) > span:first-child {
+  padding-top: 0.2963rem;
+}
+
+.details .kaituanBtn > ol > li:last-child {
+  font-size: 0.59259rem;
+  width: 6.94815rem;
+  height: 100%;
+  color: #f8fff4;
+  background: #ac2b2f;
+}
+
+.details .kaituanBtn > ol > li:last-child span {
+  display: block;
+}
+
+.details .kaituanBtn > ol > li:last-child span:first-child {
+  padding-top: 0.2963rem;
+}
+
+.details .motai {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 188;
+  background: rgba(0, 0, 0, 0.2);
+  animation: motaiK .3s forwards;
+}
+
+.details .motai .motai_list {
+  position: absolute;
+  width: 100%;
+  height: 15.61481rem;
+  background: #fff;
+  z-index: 199;
+  bottom: 0;
+  left: 0;
+}
+
+.details .motai .motai_list .motai_con {
+  width: 100%;
+  padding: 0.57778rem;
+}
+
+.details .motai .motai_list .motai_con p:first-child {
+  width: 100%;
+  height: 0.88889rem;
+}
+
+.details .motai .motai_list .motai_con p:first-child span {
+  display: block;
+  width: 0.75556rem;
+  height: 0.75556rem;
+  border-radius: 50%;
+  text-align: center;
+  float: right;
+  line-height: 0.77037rem;
+  color: #959595;
+  border: 1px solid #959595;
+  font-size: 0.32593rem;
+}
+
+.details .motai .motai_list .motai_con .shangpin {
+  width: 100%;
+  display: flex;
+}
+
+.details .motai .motai_list .motai_con .shangpin > dt {
+  width: 2.51852rem;
+  height: 2.51852rem;
+}
+
+.details .motai .motai_list .motai_con .shangpin > dt img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.14815rem;
+}
+
+.details .motai .motai_list .motai_con .shangpin > dd {
+  padding-left: 0.59259rem;
+  width: 80%;
+}
+
+.details .motai .motai_list .motai_con .shangpin > dd > h5 {
+  width: 100%;
+  font-size: 0.5037rem;
+  color: #434343;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.details .motai .motai_list .motai_con .shangpin > dd > span {
+  font-size: 0.41481rem;
+  color: #962320;
+}
+
+.details .motai .motai_list .motai_con > p {
+  width: 100%;
+  line-height: 1.39259rem;
+  font-size: 0.53333rem;
+  color: #000000;
+  margin: 0.14815rem 0;
+}
+
+.details .motai .motai_list .motai_con > ul {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+}
+
+.details .motai .motai_list .motai_con > ul > li {
+  width: 5.83704rem;
+  line-height: 1.12593rem;
+  text-align: center;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+}
+
+.details .motai .motai_list .motai_con > ul > li:last-child {
+  margin-left: 0.4rem;
+}
+
+.details .motai .motai_list .motai_con > ul .li {
+  border: 1px solid #962320;
+  color: #962320;
+}
+
+.details .motai .motai_list .motai_con > ol {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+}
+
+.details .motai .motai_list .motai_con > ol > li {
+  padding: 0.31111rem 0.54815rem;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+}
+
+.details .motai .motai_list .motai_con > ol > li:last-child {
+  margin-left: 0.4rem;
+}
+
+.details .motai .motai_list .motai_con > ol .fuwu {
+  border: 1px solid #962320;
+  color: #962320;
+}
+
+.details .motai .motai_list .motai_con .num {
+  width: 100%;
+  display: flex;
+  margin-top: 1.61481rem;
+  justify-content: space-between;
+}
+
+.details .motai .motai_list .motai_con .num > dt {
+  font-size: 0.5037rem;
+  color: #000;
+}
+
+.details .motai .motai_list .motai_con .num > dd {
+  display: flex;
+}
+
+.details .motai .motai_list .motai_con .num > dd span {
+  display: block;
+  width: 1.68889rem;
+  height: 1.37778rem;
+  border: 1px solid #cccccc;
+  text-align: center;
+  font-size: 0.44444rem;
+  font-weight: bold;
+  line-height: 1.37778rem;
+}
+
+.details .motai .motai_list .motai_con .num > dd span:nth-child(2) {
+  width: 2.08889rem;
+}
+
+.details .motai .motai_list .motai_con .num > dd span:first-child {
+  border-right: 0;
+  border-radius: 0.14815rem 0 0 0.11852rem;
+}
+
+.details .motai .motai_list .motai_con .num > dd span:last-child {
+  border-left: 0;
+  border-radius: 0 0.11852rem 0.11852rem 0;
+}
+
+.details .motai .motai_list .mai {
+  width: 100%;
+  height: 1.83704rem;
+  border-top: 1px solid #aca59b;
+}
+
+.details .motai .motai_list .mai > button {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #b4272d;
+  color: #fffefb;
+  font-size: 0.63704rem;
+}
+
+.details .motai2 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 188;
+  background: rgba(0, 0, 0, 0.2);
+  animation: motaiK .2s forwards;
+}
+
+.details .motai2 .motai_list {
+  position: absolute;
+  width: 100%;
+  height: 15.61481rem;
+  background: #fff;
+  z-index: 199;
+  bottom: 0;
+  left: 0;
+}
+
+.details .motai2 .motai_list .motai_con {
+  width: 100%;
+  padding: 0.57778rem;
+}
+
+.details .motai2 .motai_list .motai_con p:first-child {
+  width: 100%;
+  height: 0.88889rem;
+}
+
+.details .motai2 .motai_list .motai_con p:first-child span {
+  display: block;
+  width: 0.75556rem;
+  height: 0.75556rem;
+  border-radius: 50%;
+  text-align: center;
+  float: right;
+  line-height: 0.77037rem;
+  color: #959595;
+  border: 1px solid #959595;
+  font-size: 0.32593rem;
+}
+
+.details .motai2 .motai_list .motai_con .shangpin {
+  width: 100%;
+  display: flex;
+}
+
+.details .motai2 .motai_list .motai_con .shangpin > dt {
+  width: 2.51852rem;
+  height: 2.51852rem;
+}
+
+.details .motai2 .motai_list .motai_con .shangpin > dt img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.14815rem;
+}
+
+.details .motai2 .motai_list .motai_con .shangpin > dd {
+  padding-left: 0.59259rem;
+  width: 80%;
+}
+
+.details .motai2 .motai_list .motai_con .shangpin > dd > h5 {
+  width: 100%;
+  font-size: 0.5037rem;
+  color: #434343;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.details .motai2 .motai_list .motai_con .shangpin > dd > span {
+  font-size: 0.41481rem;
+  color: #962320;
+}
+
+.details .motai2 .motai_list .motai_con > p {
+  width: 100%;
+  line-height: 1.39259rem;
+  font-size: 0.53333rem;
+  color: #000000;
+  margin: 0.14815rem 0;
+}
+
+.details .motai2 .motai_list .motai_con > ul {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+}
+
+.details .motai2 .motai_list .motai_con > ul > li {
+  width: 5.83704rem;
+  line-height: 1.12593rem;
+  text-align: center;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+}
+
+.details .motai2 .motai_list .motai_con > ul > li:last-child {
+  margin-left: 0.4rem;
+}
+
+.details .motai2 .motai_list .motai_con > ul .li {
+  border: 1px solid #962320;
+  color: #962320;
+}
+
+.details .motai2 .motai_list .motai_con > ol {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+}
+
+.details .motai2 .motai_list .motai_con > ol > li {
+  padding: 0.31111rem 0.54815rem;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+}
+
+.details .motai2 .motai_list .motai_con > ol > li:last-child {
+  margin-left: 0.4rem;
+}
+
+.details .motai2 .motai_list .motai_con > ol .fuwu {
+  border: 1px solid #962320;
+  color: #962320;
+}
+
+.details .motai2 .motai_list .motai_con .num {
+  width: 100%;
+  display: flex;
+  margin-top: 1.61481rem;
+  justify-content: space-between;
+}
+
+.details .motai2 .motai_list .motai_con .num > dt {
+  font-size: 0.5037rem;
+  color: #000;
+}
+
+.details .motai2 .motai_list .motai_con .num > dd {
+  display: flex;
+}
+
+.details .motai2 .motai_list .motai_con .num > dd span {
+  display: block;
+  width: 1.68889rem;
+  height: 1.37778rem;
+  border: 1px solid #cccccc;
+  text-align: center;
+  font-size: 0.44444rem;
+  font-weight: bold;
+  line-height: 1.37778rem;
+}
+
+.details .motai2 .motai_list .motai_con .num > dd span:nth-child(2) {
+  width: 2.08889rem;
+}
+
+.details .motai2 .motai_list .motai_con .num > dd span:first-child {
+  border-right: 0;
+  border-radius: 0.14815rem 0 0 0.11852rem;
+}
+
+.details .motai2 .motai_list .motai_con .num > dd span:last-child {
+  border-left: 0;
+  border-radius: 0 0.11852rem 0.11852rem 0;
+}
+
+.details .motai2 .motai_list .mai {
+  width: 100%;
+  height: 1.83704rem;
+  border-top: 1px solid #aca59b;
+}
+
+.details .motai2 .motai_list .mai > button {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #b4272d;
+  color: #fffefb;
+  font-size: 0.63704rem;
+}
+
+.details .moTai_putong {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  animation: motaiK .2s forwards;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.details .moTai_putong .general {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+}
+
+.details .moTai_putong .general .motai_con {
+  width: 100%;
+  padding: 0.60741rem;
+}
+
+.details .moTai_putong .general .motai_con p:first-child {
+  width: 100%;
+  height: 0.88889rem;
+}
+
+.details .moTai_putong .general .motai_con p:first-child span {
+  display: block;
+  width: 0.75556rem;
+  height: 0.75556rem;
+  border-radius: 50%;
+  text-align: center;
+  float: right;
+  line-height: 0.77037rem;
+  color: #959595;
+  border: 1px solid #959595;
+  font-size: 0.32593rem;
+}
+
+.details .moTai_putong .general .motai_con .shangpin {
+  width: 100%;
+  display: flex;
+}
+
+.details .moTai_putong .general .motai_con .shangpin > dt {
+  width: 2.51852rem;
+  height: 2.51852rem;
+}
+
+.details .moTai_putong .general .motai_con .shangpin > dt img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.14815rem;
+}
+
+.details .moTai_putong .general .motai_con .shangpin > dd {
+  padding-left: 0.59259rem;
+  width: 80%;
+}
+
+.details .moTai_putong .general .motai_con .shangpin > dd > h5 {
+  width: 100%;
+  font-size: 0.5037rem;
+  color: #434343;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.details .moTai_putong .general .motai_con .shangpin > dd > span {
+  font-size: 0.41481rem;
+  color: #962320;
+}
+
+.details .moTai_putong .general .motai_con .num {
+  width: 100%;
+  display: flex;
+  margin-top: 1.61481rem;
+  justify-content: space-between;
+}
+
+.details .moTai_putong .general .motai_con .num > dt {
+  font-size: 0.5037rem;
+  color: #000;
+}
+
+.details .moTai_putong .general .motai_con .num > dd {
+  display: flex;
+}
+
+.details .moTai_putong .general .motai_con .num > dd span {
+  display: block;
+  width: 1.68889rem;
+  height: 1.37778rem;
+  border: 1px solid #cccccc;
+  text-align: center;
+  font-size: 0.44444rem;
+  font-weight: bold;
+  line-height: 1.37778rem;
+}
+
+.details .moTai_putong .general .motai_con .num > dd span:nth-child(2) {
+  width: 2.08889rem;
+}
+
+.details .moTai_putong .general .motai_con .num > dd span:first-child {
+  border-right: 0;
+  border-radius: 0.14815rem 0 0 0.11852rem;
+}
+
+.details .moTai_putong .general .motai_con .num > dd span:last-child {
+  border-left: 0;
+  border-radius: 0 0.11852rem 0.11852rem 0;
+}
+
+.details .moTai_putong .general .mai {
+  width: 100%;
+  height: 1.83704rem;
+  border-top: 1px solid #aca59b;
+}
+
+.details .moTai_putong .general .mai > button {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #b4272d;
+  color: #fffefb;
+  font-size: 0.63704rem;
+}
+
+.details .moTai_putong2 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  animation: motaiK .2s forwards;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.details .moTai_putong2 .general {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+}
+
+.details .moTai_putong2 .general .motai_con {
+  width: 100%;
+  padding: 0.60741rem;
+}
+
+.details .moTai_putong2 .general .motai_con p:first-child {
+  width: 100%;
+  height: 0.88889rem;
+}
+
+.details .moTai_putong2 .general .motai_con p:first-child span {
+  display: block;
+  width: 0.75556rem;
+  height: 0.75556rem;
+  border-radius: 50%;
+  text-align: center;
+  float: right;
+  line-height: 0.77037rem;
+  color: #959595;
+  border: 1px solid #959595;
+  font-size: 0.32593rem;
+}
+
+.details .moTai_putong2 .general .motai_con .shangpin {
+  width: 100%;
+  display: flex;
+}
+
+.details .moTai_putong2 .general .motai_con .shangpin > dt {
+  width: 2.51852rem;
+  height: 2.51852rem;
+}
+
+.details .moTai_putong2 .general .motai_con .shangpin > dt img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.14815rem;
+}
+
+.details .moTai_putong2 .general .motai_con .shangpin > dd {
+  padding-left: 0.59259rem;
+  width: 80%;
+}
+
+.details .moTai_putong2 .general .motai_con .shangpin > dd > h5 {
+  width: 100%;
+  font-size: 0.5037rem;
+  color: #434343;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.details .moTai_putong2 .general .motai_con .shangpin > dd > span {
+  font-size: 0.41481rem;
+  color: #962320;
+}
+
+.details .moTai_putong2 .general .motai_con .num {
+  width: 100%;
+  display: flex;
+  margin-top: 1.61481rem;
+  justify-content: space-between;
+}
+
+.details .moTai_putong2 .general .motai_con .num > dt {
+  font-size: 0.5037rem;
+  color: #000;
+}
+
+.details .moTai_putong2 .general .motai_con .num > dd {
+  display: flex;
+}
+
+.details .moTai_putong2 .general .motai_con .num > dd span {
+  display: block;
+  width: 1.68889rem;
+  height: 1.37778rem;
+  border: 1px solid #cccccc;
+  text-align: center;
+  font-size: 0.44444rem;
+  font-weight: bold;
+  line-height: 1.37778rem;
+}
+
+.details .moTai_putong2 .general .motai_con .num > dd span:nth-child(2) {
+  width: 2.08889rem;
+}
+
+.details .moTai_putong2 .general .motai_con .num > dd span:first-child {
+  border-right: 0;
+  border-radius: 0.14815rem 0 0 0.11852rem;
+}
+
+.details .moTai_putong2 .general .motai_con .num > dd span:last-child {
+  border-left: 0;
+  border-radius: 0 0.11852rem 0.11852rem 0;
+}
+
+.details .moTai_putong2 .general .mai {
+  width: 100%;
+  height: 1.83704rem;
+  border-top: 1px solid #aca59b;
+}
+
+.details .moTai_putong2 .general .mai > button {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #b4272d;
+  color: #fffefb;
+  font-size: 0.63704rem;
+}
+
+@keyframes motaiK {
+  0% {
+    top: 100%;
+    display: none;
+  }
+  100% {
+    top: 0;
+    display: block;
+  }
 }

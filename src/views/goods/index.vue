@@ -1,7 +1,7 @@
 <template>
   <div class="index">
       <section>
-         <router-view />
+            <router-view />
       </section>
 
       <!-- 页尾 -->

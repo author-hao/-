@@ -29,11 +29,11 @@
               <div class="template_list">
                    <dl v-for='(item, i) in kanjia' :key='i'>
                       <dt>
-                           <router-link to=''>
+                           <router-link :to='{ path:"/bargaindetail", query:{id: item.id } }'>
                               <img :src="item.pic" alt="">
                            </router-link>
                       </dt>
-                          <dd>
+                          <dd @click='detail(item.id)'>
                                 <h4>{{ item.name }}</h4>
                                 <span>{{ item.characteristic }}</span>
                                 <ul>
@@ -115,21 +115,41 @@ export default {
     },
     theme () {
       this.$router.push('/theme')
+    },
+    detail (id) {
+      this.$router.push({
+        path: '/bargaindetail',
+        query: { id: id }
+      })
     }
   },
   mounted () {
     this.$nextTick(() => {
       this.scroll = new BScroll(this.$refs.wrapper, {
         scrollY: true, // 纵向滚动
-        click: true
+        click: true,
+        bounce: {
+          top: true,
+          bottom: true
+        }
       })
       this.scroll = new BScroll(this.$refs.zhuti, {
         scrollY: false,
         scrollX: true, // 横向滚动
-        click: true
+        click: true,
+        bounce: { // 当滚动超过边缘的时候会有一小段回弹动画, false关闭
+          left: false,
+          right: false
+        }
       })
-      this.scroll.refresh()
     })
+
+    setTimeout(() => {
+      this.scroll.refresh()
+    }, 20)
+  },
+  beforeRouteLeave (to, from, next) {
+    next()
   }
 }
 </script>
