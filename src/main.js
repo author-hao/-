@@ -6,7 +6,8 @@ import router from './router'
 import ElementUI, { Loading } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './config/global.js'
-
+// import { setCookie, getCookie, delCookie } from '@/components/util/cookie.js'
+import VueLazyload from 'vue-lazyload'
 import 'swiper/dist/css/swiper.css'
 import 'swiper/dist/js/swiper.min.js'
 import './assets/css/app.scss'
@@ -22,7 +23,7 @@ let loadingInstance
 
 axios.interceptors.request.use(function (config) {
   // 请求数据时 开启 lodding 动画
-  // loadingInstance = Loading.service({ fullscreen: true })
+  loadingInstance = Loading.service({ fullscreen: true })
   return config
 }, function (error) {
   loadingInstance.close()
@@ -32,12 +33,26 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
   // 以服务的方式调用的 Loading 需要异步关闭
   setTimeout(() => {
-    // loadingInstance.close()
+    loadingInstance.close()
   }, 1)
   return response
 }, function (error) {
   loadingInstance.close()
   return Promise.reject(error)
+})
+
+// 定义全局钩子,在路由跳转时做相应的处理(替换title)
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
+
+// 图片懒加载
+Vue.use(VueLazyload, {
+  loading: '../static/tiaowen.gif'
 })
 
 /* eslint-disable no-new */

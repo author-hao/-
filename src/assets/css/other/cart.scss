@@ -7,6 +7,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     >h3 {
         width: 100%;
         height: rem(102);
@@ -17,6 +18,8 @@
         z-index: 5;
         color: #353535;
         position: relative;
+        border-bottom: 1px solid #eee;
+
         span {
             position: absolute;
             color:#b5272d;
@@ -35,7 +38,7 @@
        // 空的购物车状态
     > .my_list {
       width: 100%;
-      border-top: 1px solid #ccc;
+
     .empty {
       width: 100%;
       text-align: center;
@@ -108,22 +111,22 @@
               }
              >span {
                   color:#b5272d;
-                  font-size: rem(26);
+                  font-size: rem(30);
                   margin-bottom: rem(31);
                   font-weight: bold;
               }
-              .operation {
+              .operation { // 加减操作
                   position: absolute;
                   bottom: 0;
                   right: rem(45);
                   display: flex;
                   span {
                       display: block;
-                      width: rem(67);
-                      height: rem(70);
+                      width: rem(70);
+                      height: rem(75);
                       border: 1px solid #cccccc;
                       text-align: center;
-                      font-size: rem(24);
+                      font-size: rem(30);
                       font-weight: bold;
                       line-height: rem(70);
                   }
@@ -145,6 +148,11 @@
           }
       }
   }
+  h2 {
+      width: 100%;
+      height: rem(25);
+      background: #f0f0f0;
+  }
 
   // 猜你喜欢
   .like {
@@ -152,7 +160,7 @@
       h3 {
         text-align: center;
         font-size: rem(40);
-        padding-top: rem(63);
+        padding-top: rem(50);
         padding-bottom: rem(50);
         color:#323232;
     }
@@ -167,10 +175,13 @@
           padding: 0 rem(13);
           box-sizing: border-box;
           margin-bottom:rem(20);
-          img {
+          a {
+              display: block;
+            img {
               width: 100%;
               margin: 0;
               display: block;
+            }
           }
           > div {
               width: 100%;

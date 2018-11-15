@@ -2,7 +2,7 @@
   <div class="footer">
       <ul>
           <li>
-              <router-link exact to='/list' ><i class="iconfont icon-shouye"></i>
+              <router-link exact to='/' ><i class="iconfont icon-shouye"></i>
               <span>首页</span></router-link>
           </li>
           <li>
@@ -25,11 +25,11 @@
 <script>
 import '@/assets/font/iconfont.css'
 export default {
-    computed: {
-        cartNum () {
-            return this.$store.state.cart_count
-        }
+  computed: {
+    cartNum () {
+      return this.$store.state.cart_count
     }
+  }
 }
 </script>
 
@@ -58,6 +58,9 @@ export default {
   .footer ul li a {
        color: #7d7d7d;
   }
+  .footer ul li a:hover {
+      text-decoration: none;
+  }
   .footer ul li strong {
       position: absolute;
       right:rem(48);
@@ -67,6 +70,7 @@ export default {
       line-height: rem(52);
       text-align: center;
       border-radius: 50%;
+      font-size: rem(30);
       background: #ff383e;
       color: #ffebe8;
   }

@@ -11,70 +11,35 @@
                   <p>去加点什么吧</p>
               </div>
             <!-- 购物车 -->
-            <section v-for='(item, i) in cart_data' :key='i' class="cart_list">
-                <dl>
-                    <dt>
+            <section class="cart_list">
+                <dl v-for='(item, i) in cart_data' :key='i' >
+                    <dt @click='checkbox(item.id)'>
                         <span>
-                            <i class="check"></i>
+                            <i :class="{'check':item.paixu }"></i>
                         </span>
                         <img :src="item.pic" alt="">
                     </dt>
                     <dd>
-                        <h3>连庄收纳盒两件组合装组昂</h3>
-                        <span>￥299</span>
+                        <h3>{{ item.name }}</h3>
+                        <span>￥{{ item.originalPrice }}</span>
                         <!-- 加减操作 -->
                         <div class="operation">
-                            <span class="reduce">-</span>
-                            <span>1</span>
-                            <span>+</span>
-                        </div>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>
-                        <span>
-                            <i class="check"></i>
-                        </span>
-                        <img src="../../../static/images/img_04.png" alt="">
-                    </dt>
-                    <dd>
-                        <h3>连庄收纳盒两件组合装组昂</h3>
-                        <span>￥299</span>
-                        <!-- 加减操作 -->
-                        <div class="operation">
-                            <span class="reduce">-</span>
-                            <span>1</span>
-                            <span>+</span>
+                            <span @click='odds(item.id)' :class="{'reduce':item.number <= 1}">-</span>
+                            <span>{{ item.number }}</span>
+                            <span @click='adds(item.id)'>+</span>
                         </div>
                     </dd>
                 </dl>
             </section>
+            <h2></h2>
             <div class="like">
                 <h3>猜你喜欢</h3>
                 <section class="rec-Sentiment_con">
-                      <div>
-                            <img src="../../../static/images/img_25.png" alt="">
+                      <div v-for='item in common_list' :key='item.id'>
+                            <router-link :to='{ path: "/details", query: {id: item.id }}'><img :src="item.pic" alt=""></router-link>
                             <div>全场使用优惠券立减88元</div>
-                            <p>清欢素雅小程序模板开课啦</p>
-                            <span>￥299</span>
-                      </div>
-                      <div>
-                            <img src="../../../static/images/img_25.png" alt="">
-                            <div>全场使用优惠券立减88元</div>
-                            <p>清欢素雅小程序模板开课啦</p>
-                            <span>￥299</span>
-                      </div>
-                      <div>
-                            <img src="../../../static/images/img_25.png" alt="">
-                            <div>全场使用优惠券立减88元</div>
-                            <p>清欢素雅小程序模板开课啦</p>
-                            <span>￥299</span>
-                      </div>
-                      <div>
-                            <img src="../../../static/images/img_25.png" alt="">
-                            <div>全场使用优惠券立减88元</div>
-                            <p>清欢素雅小程序模板开课啦</p>
-                            <span>￥299</span>
+                            <p>{{ item.name }}</p>
+                            <span>￥{{ item.originalPrice }}</span>
                       </div>
                   </section>
             </div>
@@ -82,25 +47,27 @@
         </div>
       </section>
 
-      <!-- 底部下单和删除 -->
+      <!-- 底部下单 -->
        <footer class="orders" v-if="cart_data.length" v-show='!updelete' >
           <div>
-              <input type="checkbox" v-model="isShow" id='checked'><label for="checked"></label>
+              <input type="checkbox"  @change='checkedAll(isShow)' v-model="isShow" id='checked'><label for="checked"></label>
               <span>全选</span>
           </div>
           <div>
-              <span>合计：<i>￥0.00</i></span>
-              <button :disabled='!isShow' @click='Confirm' :class="{'button': isShow}">下单</button>
+              <span>合计：<i>￥{{ zjAll }}</i></span>
+              <button :disabled='!checked_dan' @click='Confirm' :class="{'button': isShow |checked_dan }">下单</button>
           </div>
        </footer>
-       <footer v-show="updelete" class="deleteAll">
-           <div>
-              <input type="checkbox" v-model="isShow" id='checked2'><label for="checked2"></label>
+
+       <!-- 删除 -->
+       <footer v-if="cart_data.length" v-show="updelete" class="deleteAll">
+           <div >
+              <input type="checkbox" @change='checkedAll(isShow)' v-model="isShow" id='checked2'><label for="checked2"></label>
               <span>全选</span>
           </div>
           <div>
-              <span v-if='0'>合计：<i>￥0.00</i></span>
-              <button :class="{'button2':true }">删除</button>
+              <span v-if='zjAll' >合计：<i>￥{{ zjAll }}</i></span>
+              <button :disabled='!checked_dan' @click='delList' :class="{'button2':checked_dan }">删除</button>
           </div>
        </footer>
     </div>
@@ -112,20 +79,47 @@ export default {
   data () {
     return {
       isShow: false,
-      cart_data: [],
-      updelete: false
+      updelete: false,
+      common_list: []
     }
   },
   computed: {
     updata () {
       return this.updelete ? '完成' : '编辑'
+    },
+    cart_data () { // 获取用户加入购物车的数据
+      return this.$store.state.listData
+    },
+    checked () { // 全部单选返回 true
+      return this.cart_data.every(item => {
+        return item.paixu === true
+      })
+    },
+    checked_dan () { // 单选
+      return this.$store.state.listData.some(i => {
+        return i.paixu === true
+      })
+    },
+    zjAll () { // 总价
+      let zjnum = 0
+      this.cart_data.forEach(i => {
+        if (i.paixu === true) {
+          zjnum += i.originalPrice * i.number
+        }
+      })
+      return zjnum
     }
   },
   mounted () {
-      // 获取用户加入购物车的数据
-      this.cart_data = this.$store.state.listData
-
-
+    console.log(this.getCookie)
+    this.$http.post('/api/shop/goods/list').then(res => {
+      let { data } = res
+      if (data.code === 0) {
+        this.common_list = data.data.filter(item => {
+          return item.recommendStatusStr === '普通'
+        })
+      }
+    })
     setTimeout(() => {
       this.$nextTick(() => {
         this.scroll = new BScroll(this.$refs.myCart, {
@@ -140,8 +134,33 @@ export default {
     updata_resover () { // 切换header 编辑按钮
       this.updelete = !this.updelete
     },
-    Confirm () {
+    Confirm () { // 跳转到订单创建页
       this.$router.push('/confirm')
+      this.$store.commit('create_order')
+    },
+    adds (id) { // 数量加加
+      this.$store.commit('add', id)
+    },
+    odds (id) { // 数量减减
+      this.$store.commit('odd', id)
+    },
+
+    checkbox (id) { // 单个选中、取消
+      this.$store.commit('checkeds', id)
+    },
+
+    checkedAll (bool) { // 全选
+      this.$store.commit('checkedA', bool)
+    },
+    delList () {
+      this.$store.commit('delete')
+      if (this.cart_data.length === 0) this.isShow = false
+    }
+
+  },
+  watch: {
+    checked () {
+      this.isShow = this.checked === true ? this.checked : false
     }
   }
 }

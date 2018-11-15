@@ -30,7 +30,7 @@
                    <dl v-for='(item, i) in kanjia' :key='i'>
                       <dt>
                            <router-link :to='{ path:"/bargaindetail", query:{id: item.id } }'>
-                              <img :src="item.pic" alt="">
+                              <img v-lazy="item.pic" alt="">
                            </router-link>
                       </dt>
                           <dd @click='detail(item.id)'>
@@ -55,12 +55,18 @@
 
               </div>
         </div>
+
+        <!-- 主题 -->
         <div class="Selected_topics">
             <h3 @click='theme'>精选主题 <span>></span></h3>
             <section class="zhuti" ref='zhuti'>
                 <ul>
-                    <li><img src="../../../static/images/img_22.png" alt=""></li>
-                    <li><img src="../../../static/images/img_22.png" alt=""></li>
+                    <li v-for='item in zhuti' :key='item.id'>
+                        <router-link :to="{ path:'/themeDetail', query: {id: item.id }}" > <img v-lazy="item.pic" alt=""></router-link>
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ item.descript }}</p>
+                    </li>
+
                 </ul>
             </section>
         </div>
@@ -68,7 +74,7 @@
               <h3>人气推荐 <span>></span></h3>
               <section class="rec-Sentiment_con">
                   <div v-for='(item, i) in tuijian' :key='i'>
-                        <router-link :to="{ path:'/details', query:{id: item.id }}"><img :src="item.pic" alt=""></router-link>
+                        <router-link :to="{ path:'/details', query:{id: item.id }}"><img v-lazy="item.pic" alt=""></router-link>
                         <p>{{ item.name }}</p>
                         <p>{{ item.characteristic }}</p>
                         <span>￥{{ item.originalPrice }}</span>
@@ -83,6 +89,7 @@
 <script>
 import Shuffling from './shuffling'
 import BScroll from 'better-scroll'
+import { getCookie } from '@/components/util/cookie.js'
 export default {
   components: {
     Shuffling
@@ -91,7 +98,8 @@ export default {
     return {
       listData: [],
       kanjia: [],
-      tuijian: []
+      tuijian: [],
+      zhuti: []
     }
   },
   created () {
@@ -107,6 +115,14 @@ export default {
           return item.recommendStatusStr === '推荐'
         })
       }
+    })
+    // 主题
+    this.$http.get('/api/cms/news/list').then(res => {
+      let { data } = res
+      if (data.code === 0) {
+        this.zhuti = data.data
+      }
+      // console.log(data)
     })
   },
   methods: {
@@ -124,32 +140,35 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.wrapper, {
-        scrollY: true, // 纵向滚动
-        click: true,
-        bounce: {
-          top: true,
-          bottom: true
-        }
-      })
-      this.scroll = new BScroll(this.$refs.zhuti, {
-        scrollY: false,
-        scrollX: true, // 横向滚动
-        click: true,
-        bounce: { // 当滚动超过边缘的时候会有一小段回弹动画, false关闭
-          left: false,
-          right: false
-        }
-      })
-    })
-
     setTimeout(() => {
-      this.scroll.refresh()
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.wrapper, {
+          scrollY: true, // 纵向滚动
+          click: true,
+          bounce: {
+            top: true,
+            bottom: true
+          }
+        })
+        this.scroll = new BScroll(this.$refs.zhuti, {
+          scrollY: false,
+          scrollX: true, // 横向滚动
+          click: true,
+          bounce: { // 当滚动超过边缘的时候会有一小段回弹动画, false关闭
+            left: false,
+            right: true
+          }
+        })
+      })
     }, 20)
   },
   beforeRouteLeave (to, from, next) {
-    next()
+    let token = getCookie('token')
+    if (token) {
+      next()
+    } else {
+      next('/login')
+    }
   }
 }
 </script>
@@ -246,6 +265,7 @@ export default {
 
                               >img {
                                 width: 100%;
+                                background: #000;
                                 border-radius: rem(5);
                             }
                            }
@@ -315,14 +335,38 @@ export default {
               width: 100%;
               overflow: auto;
              ul {
-                width: 200%;
+                width: 445%;
                 padding: 0 rem(10);
+                overflow: auto;
+                display: flex;
                 li {
-                  width: 40%;
-                  padding: 0 rem(10);
-                  float: left;
-                    img {
+                  width: 19.4%;
+                  margin: 0 rem(10);
+                  color: #9d9d9d;
+
+                   a {
+                        display: block;
+                      img {
+                        display: block;
                         width: 100%;
+                        height: rem(350);
+                    }
+                   }
+                    h4 {
+                        font-size: rem(30);
+                        white-space: nowrap;
+                        overflow: hidden;
+                        color: #333333;
+                        text-overflow: ellipsis;
+                        margin: rem(5) 0;
+                        text-indent: 1em;
+                    }
+                    p {
+                        font-size: rem(23);
+                         white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-indent: 1em;
                     }
                 }
              }

@@ -10,7 +10,7 @@
               </ul>
           </div>
           <div class="right_list" ref="right_list">
-             <div>
+             <div class="right_list_con">
                 <div class="swiper-container sort_banner">
                   <div class="swiper-wrapper">
                     <div class="swiper-slide"><img src="../../../static/images/banner3.jpg" alt=""></div>
@@ -21,7 +21,7 @@
                 <section class="sort_con">
                     <ul>
                         <li v-for='(item, i) in sortList' :key='i'>
-                            <router-link :to="{path: '/classifyDetail', query:{ id: item.id }}"><img :src="item.icon" alt="图片加载失败">
+                            <router-link :to="{path: '/details', query:{ id: item.id }}"><img v-lazy="item.icon" alt="图片加载失败">
                             <p>{{ item.name }}</p></router-link>
                         </li>
                     </ul>
@@ -85,13 +85,14 @@ export default {
               return item.icon !== ''
             })
             this.sortList = listData.filter(item => {
-              return (item.type === type + '2')
+              return (item.type === type + '2' && type)
             })
           }
         })
       } else {
         this.$http.get('/api/shop/goods/category/all').then(res => {
           let { data } = res
+          console.log(data)
           if (data.code === 0) {
             setTimeout(() => {
               this.loading = false
@@ -106,8 +107,17 @@ export default {
     }
   },
   mounted () {
+    setTimeout(() => {
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.right_list, {
+          scrollY: true,
+          click: true
+        })
+        this.scroll.refresh()
+      })
+    }, 20)
     this.list_filter()
-    var mySwiper = new Swiper('.sort_banner', {
+    this.swiper = new Swiper('.sort_banner', {
       loop: true,
       autoplay: { // 可选选项，自动滑动
         disableOnInteraction: false
@@ -115,11 +125,6 @@ export default {
       pagination: {
         el: '.swiper-pagination'
       }
-    })
-    this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.right_list, {
-        click: true
-      })
     })
   }
 

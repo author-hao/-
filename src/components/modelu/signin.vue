@@ -2,7 +2,7 @@
   <!-- 签到 -->
     <div class="signin">
         <header class="signin_title">
-            <span @click='Return'><</span>
+            <span @click='Return'>&lt;</span>
         </header>
         <section class="signin_content">
             <div class="signin_num">

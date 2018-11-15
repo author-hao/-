@@ -60,7 +60,7 @@ export default {
       classifyData: ['az']
     }
   },
-  mounted() {
+  mounted () {
     console.log(this.$route)
     // this.$http.get('').then(response => {
     //     console.log(response)

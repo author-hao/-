@@ -20,6 +20,32 @@
         overflow: auto;
         .site_con {
             width: 100%;
+            dl {
+                width: 100%;
+                font-size: rem(30);
+                display: flex;
+                dt {
+                    
+                    span {
+                        display: block;
+                        width: rem(20);
+                        height: 20;
+                        border-radius: 50%;
+                        border: 1px solid #ccc;
+                        i {
+                            display: block;
+                            width: 100%;
+                            height: rem(20);
+                            background: #000;
+                        }
+                    }
+                }
+                dd {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: rem(30)
+                }
+            }
         }
     }
     .set_site {

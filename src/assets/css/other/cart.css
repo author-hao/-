@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .cart > h3 {
@@ -15,6 +16,7 @@
   z-index: 5;
   color: #353535;
   position: relative;
+  border-bottom: 1px solid #eee;
 }
 
 .cart > h3 span {
@@ -37,7 +39,6 @@
 
 .cart .myCart .wapper > .my_list {
   width: 100%;
-  border-top: 1px solid #ccc;
 }
 
 .cart .myCart .wapper > .my_list .empty {
@@ -124,7 +125,7 @@
 
 .cart .myCart .wapper > .my_list .cart_list dl dd > span {
   color: #b5272d;
-  font-size: 0.38519rem;
+  font-size: 0.44444rem;
   margin-bottom: 0.45926rem;
   font-weight: bold;
 }
@@ -138,11 +139,11 @@
 
 .cart .myCart .wapper > .my_list .cart_list dl dd .operation span {
   display: block;
-  width: 0.99259rem;
-  height: 1.03704rem;
+  width: 1.03704rem;
+  height: 1.11111rem;
   border: 1px solid #cccccc;
   text-align: center;
-  font-size: 0.35556rem;
+  font-size: 0.44444rem;
   font-weight: bold;
   line-height: 1.03704rem;
 }
@@ -165,6 +166,12 @@
   border: 1px solid #eee;
 }
 
+.cart .myCart .wapper > .my_list h2 {
+  width: 100%;
+  height: 0.37037rem;
+  background: #f0f0f0;
+}
+
 .cart .myCart .wapper > .my_list .like {
   width: 100%;
 }
@@ -172,7 +179,7 @@
 .cart .myCart .wapper > .my_list .like h3 {
   text-align: center;
   font-size: 0.59259rem;
-  padding-top: 0.93333rem;
+  padding-top: 0.74074rem;
   padding-bottom: 0.74074rem;
   color: #323232;
 }
@@ -192,7 +199,11 @@
   margin-bottom: 0.2963rem;
 }
 
-.cart .myCart .wapper > .my_list .like .rec-Sentiment_con > div img {
+.cart .myCart .wapper > .my_list .like .rec-Sentiment_con > div a {
+  display: block;
+}
+
+.cart .myCart .wapper > .my_list .like .rec-Sentiment_con > div a img {
   width: 100%;
   margin: 0;
   display: block;

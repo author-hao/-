@@ -2,7 +2,7 @@
   <div class="swiper-container banner">
         <div class="swiper-wrapper">
             <div v-for='(item, i) in banner_list' :key='i' class="swiper-slide">
-                <router-link :to="'/details/'+item.id">
+                <router-link :to="{ path: '/details', query: {id: 99765}}">
                   <img :src='item.picUrl' alt="图片加载失败">
                 </router-link>
             </div>
@@ -27,33 +27,41 @@ export default {
       banner_list: []
     }
   },
-  mounted () {
-    // console.log(global.data.api)
-    let mySwiper = new Swiper('.banner', {
-      loop: true,
-      autoplay: {// 自动滑动
-        disableOnInteraction: false
-      },
-      pagination: {// 如果需要分页器
-        el: '.swiper-pagination'
-      },
-      observer: true,
-      observeParents: true
-      // 如果需要前进后退按钮
-      // navigation: {
-      //   nextEl: '.swiper-button-next',
+  methods: {
+    initSwiper () {
+      this.swiper = new Swiper('.banner', {
+        loopAdditionalSlides: 3,
+        loop: true, // 循环
+        autoplay: {// 自动播放
+          disableOnInteraction: false
+        },
+        pagination: {// 如果需要分页器
+          el: '.swiper-pagination'
+        },
+        observer: true, // 启动动态检查器(OB/观众/观看者)
+        observeParents: true // 修改swiper的父元素时，自动初始化swiper
+        // updateOnImagesReady: true
+        // 如果需要前进后退按钮
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
       //   prevEl: '.swiper-button-prev'
       // }
       // 如果需要滚动条
       // scrollbar: {
       //   el: '.swiper-scrollbar'
       // }
-    })
-    // console.log(mySwiper.$el.length)
+      })
+    }
+  },
+  mounted () {
     this.$http.get('/api/banner/list').then(res => {
       let { data } = res
       if (data.code === 0) {
         this.banner_list = data.data
+        this.$nextTick(() => {
+          this.initSwiper()
+        })
+        // console.log(data)
       }
     })
   }

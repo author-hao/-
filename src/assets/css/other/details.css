@@ -38,14 +38,13 @@
 
 .details .details_warpper {
   width: 100%;
-  height: 100%;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .details .details_warpper .details_con {
   width: 100%;
-  padding-bottom: 2.2963rem;
+  padding-bottom: 0.74074rem;
 }
 
 .details .details_warpper .details_con .swiper-container {
@@ -65,22 +64,23 @@
   width: 100%;
 }
 
-.details .details_warpper .details_con .details_data {
+.details .details_warpper .details_con .details_data_pu {
   width: 100%;
   box-sizing: border-box;
-  padding: 0.65185rem;
+  padding: 0.65185rem 0;
 }
 
-.details .details_warpper .details_con .details_data > h3 {
+.details .details_warpper .details_con .details_data_pu > h3 {
   width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   font-size: 0.66667rem;
   color: #313131;
+  padding: 0 0.65185rem;
 }
 
-.details .details_warpper .details_con .details_data > p {
+.details .details_warpper .details_con .details_data_pu > p {
   width: 100%;
   margin-top: 0.31111rem;
   white-space: nowrap;
@@ -88,35 +88,60 @@
   overflow: hidden;
   font-size: 0.57778rem;
   color: #999999;
+  padding: 0 0.65185rem;
 }
 
-.details .details_warpper .details_con .details_data > ul {
+.details .details_warpper .details_con .details_data_pu > ul {
   width: 100%;
   display: flex;
   margin-top: 1.03704rem;
+  padding: 0 0.65185rem;
   justify-content: space-between;
 }
 
-.details .details_warpper .details_con .details_data > ul > li:first-child {
+.details .details_warpper .details_con .details_data_pu > ul > li:first-child {
   font-size: 0.62222rem;
   font-weight: 550;
   display: flex;
 }
 
-.details .details_warpper .details_con .details_data > ul > li:first-child span:first-child {
+.details .details_warpper .details_con .details_data_pu > ul > li:first-child span:first-child {
   color: #a32821;
 }
 
-.details .details_warpper .details_con .details_data > ul > li:first-child span:last-child {
+.details .details_warpper .details_con .details_data_pu > ul > li:first-child span:last-child {
   padding-top: 0.34074rem;
   padding-left: 0.44444rem;
   color: #9b9b9b;
   text-decoration: line-through;
 }
 
-.details .details_warpper .details_con .details_data > ul > li:last-child {
+.details .details_warpper .details_con .details_data_pu > ul > li:last-child {
   color: #959595;
   font-size: 0.5037rem;
+}
+
+.details .details_warpper .details_con .details_data_pu h2 {
+  height: 0.37037rem;
+  background: #f0f0ff;
+}
+
+.details .details_warpper .details_con .details_data_pu .putong_xuanze {
+  background: #fff;
+  width: 100%;
+  height: 1.94074rem;
+  font-size: 0.5037rem;
+  padding: 0 0.65185rem;
+  color: #292929;
+  line-height: 1.64444rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.details .details_warpper .details_con .details_data_pu .putong_xuanze > span {
+  display: block;
+  padding-top: 0.14815rem;
+  font-size: 0.74074rem;
 }
 
 .details .details_warpper .details_con .pintuan {
@@ -298,15 +323,19 @@
 
 .details .details_commit {
   width: 100%;
-  height: 2.08889rem;
+  height: 2.04444rem;
   z-index: 10;
-  margin-bottom: -1px;
+  margin-bottom: 0px;
   background: #fff;
   border-top: 2px solid #dadada;
+  position: absolute;
+  bottom: 0;
 }
 
 .details .details_commit > ul {
   list-style: none;
+  width: 100%;
+  height: 100%;
   display: flex;
   font-size: 0.59259rem;
   background: #fff;
@@ -315,7 +344,7 @@
 
 .details .details_commit > ul .iocn {
   margin: 0 0.62222rem;
-  line-height: 2.08889rem;
+  line-height: 2.04444rem;
   color: #636363;
 }
 
@@ -339,18 +368,19 @@
   text-align: center;
   font-size: 0.34074rem;
   border-radius: 50%;
+  font-size: 0.44444rem;
   background: #b4272d;
   color: #feffec;
 }
 
 .details .details_commit > ul > li:nth-child(4) {
-  line-height: 2.1037rem;
+  line-height: 2.04444rem;
   color: #000;
 }
 
 .details .details_commit > ul > .btn {
   width: 4.62222rem;
-  height: 2.08889rem;
+  height: 2.04444rem;
 }
 
 .details .details_commit > ul > .btn > button {
@@ -437,7 +467,6 @@
 .details .motai .motai_list {
   position: absolute;
   width: 100%;
-  height: 15.61481rem;
   background: #fff;
   z-index: 199;
   bottom: 0;
@@ -522,10 +551,7 @@
   text-align: center;
   border-radius: 0.14815rem;
   border: 1px solid #dddddd;
-}
-
-.details .motai .motai_list .motai_con > ul > li:last-child {
-  margin-left: 0.4rem;
+  margin: 0 0.19259rem;
 }
 
 .details .motai .motai_list .motai_con > ul .li {
@@ -537,16 +563,14 @@
   display: flex;
   width: 100%;
   font-size: 0.5037rem;
+  flex-wrap: wrap;
 }
 
 .details .motai .motai_list .motai_con > ol > li {
   padding: 0.31111rem 0.54815rem;
   border-radius: 0.14815rem;
   border: 1px solid #dddddd;
-}
-
-.details .motai .motai_list .motai_con > ol > li:last-child {
-  margin-left: 0.4rem;
+  margin: 0.14815rem 0.19259rem;
 }
 
 .details .motai .motai_list .motai_con > ol .fuwu {
@@ -576,7 +600,8 @@
   height: 1.37778rem;
   border: 1px solid #cccccc;
   text-align: center;
-  font-size: 0.44444rem;
+  font-size: 0.51852rem;
+  font-weight: 700;
   font-weight: bold;
   line-height: 1.37778rem;
 }
@@ -622,7 +647,6 @@
 .details .motai2 .motai_list {
   position: absolute;
   width: 100%;
-  height: 15.61481rem;
   background: #fff;
   z-index: 199;
   bottom: 0;
@@ -707,10 +731,7 @@
   text-align: center;
   border-radius: 0.14815rem;
   border: 1px solid #dddddd;
-}
-
-.details .motai2 .motai_list .motai_con > ul > li:last-child {
-  margin-left: 0.4rem;
+  margin: 0 0.19259rem;
 }
 
 .details .motai2 .motai_list .motai_con > ul .li {
@@ -722,16 +743,14 @@
   display: flex;
   width: 100%;
   font-size: 0.5037rem;
+  flex-wrap: wrap;
 }
 
 .details .motai2 .motai_list .motai_con > ol > li {
   padding: 0.31111rem 0.54815rem;
   border-radius: 0.14815rem;
   border: 1px solid #dddddd;
-}
-
-.details .motai2 .motai_list .motai_con > ol > li:last-child {
-  margin-left: 0.4rem;
+  margin: 0.14815rem 0.19259rem;
 }
 
 .details .motai2 .motai_list .motai_con > ol .fuwu {
@@ -834,7 +853,8 @@
   line-height: 0.77037rem;
   color: #959595;
   border: 1px solid #959595;
-  font-size: 0.32593rem;
+  font-size: 0.47407rem;
+  font-weight: 700;
 }
 
 .details .moTai_putong .general .motai_con .shangpin {
@@ -869,6 +889,53 @@
 
 .details .moTai_putong .general .motai_con .shangpin > dd > span {
   font-size: 0.41481rem;
+  color: #962320;
+}
+
+.details .moTai_putong .general .motai_con > p {
+  width: 100%;
+  line-height: 1.39259rem;
+  font-size: 0.53333rem;
+  color: #000000;
+  margin: 0.14815rem 0;
+}
+
+.details .moTai_putong .general .motai_con > ul {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+}
+
+.details .moTai_putong .general .motai_con > ul > li {
+  width: 5.83704rem;
+  line-height: 1.12593rem;
+  text-align: center;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+  margin: 0 0.19259rem;
+}
+
+.details .moTai_putong .general .motai_con > ul .ul {
+  border: 1px solid #962320;
+  color: #962320;
+}
+
+.details .moTai_putong .general .motai_con > ol {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+  flex-wrap: wrap;
+}
+
+.details .moTai_putong .general .motai_con > ol > li {
+  padding: 0.31111rem 0.54815rem;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+  margin: 0.14815rem 0.19259rem;
+}
+
+.details .moTai_putong .general .motai_con > ol .ol {
+  border: 1px solid #962320;
   color: #962320;
 }
 
@@ -1005,10 +1072,58 @@
   color: #962320;
 }
 
+.details .moTai_putong2 .general .motai_con > p {
+  width: 100%;
+  line-height: 1.39259rem;
+  font-size: 0.53333rem;
+  color: #000000;
+  margin: 0.14815rem 0;
+}
+
+.details .moTai_putong2 .general .motai_con > ul {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+}
+
+.details .moTai_putong2 .general .motai_con > ul > li {
+  width: 5.83704rem;
+  line-height: 1.12593rem;
+  text-align: center;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+  margin: 0 0.19259rem;
+}
+
+.details .moTai_putong2 .general .motai_con > ul .ul2 {
+  border: 1px solid #962320;
+  color: #962320;
+}
+
+.details .moTai_putong2 .general .motai_con > ol {
+  display: flex;
+  width: 100%;
+  font-size: 0.5037rem;
+  flex-wrap: wrap;
+}
+
+.details .moTai_putong2 .general .motai_con > ol > li {
+  padding: 0.31111rem 0.54815rem;
+  border-radius: 0.14815rem;
+  border: 1px solid #dddddd;
+  margin: 0.14815rem 0.19259rem;
+}
+
+.details .moTai_putong2 .general .motai_con > ol .ol2 {
+  border: 1px solid #962320;
+  color: #962320;
+}
+
 .details .moTai_putong2 .general .motai_con .num {
   width: 100%;
   display: flex;
   margin-top: 1.61481rem;
+  font-weight: 550;
   justify-content: space-between;
 }
 
@@ -1059,6 +1174,24 @@
   background: #b4272d;
   color: #fffefb;
   font-size: 0.63704rem;
+}
+
+.details .success_tan {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 2.37037rem;
+  text-align: center;
+  font-size: 0.59259rem;
+  z-index: 9999;
+}
+
+.details .success_tan > span {
+  display: inline;
+  padding: 0.59259rem;
+  border-radius: 0.14815rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: #f9fffd;
 }
 
 @keyframes motaiK {

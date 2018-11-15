@@ -49,6 +49,15 @@
   outline: none;
 }
 
+.newsite .site_con ul li:nth-child(3) select {
+  width: 21%;
+  height: rem(80);
+  border: 0;
+  margin: 0 rem(5);
+  outline: none;
+  background: #fff;
+}
+
 .newsite .buttonBtn {
   width: 100%;
   box-sizing: border-box;

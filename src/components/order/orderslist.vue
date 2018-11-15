@@ -8,15 +8,19 @@
           <ul>
               <li class="site_red">
                  <router-link exact to='/orderslist/staypayment'>待付款</router-link>
+
               </li>
               <li>
                   <router-link to='/orderslist/staysend'>待发货</router-link>
+
               </li>
               <li>
                   <router-link to='/orderslist/staygoods'>待收货</router-link>
+
               </li>
               <li>
                   <router-link to='/orderslist/stayevaluate'>待评价</router-link>
+
               </li>
               <li>
                   <router-link to='/orderslist/hascompleted'>已完成</router-link>

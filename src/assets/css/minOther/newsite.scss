@@ -38,6 +38,21 @@
                     outline: none;
                 }
             }
+            li:nth-child(3) {
+                select {
+                        width: 21%;
+                        height: rem(80);
+                        border: 0;
+                        margin: 0 rem(5);
+                        outline: none;
+                        background: #fff;
+                        // appearance: none;
+                        // -webkit-appearance: none;
+                        // -moz-appearance: none;
+                        
+                }
+                
+            }
         }
     }
     .buttonBtn {

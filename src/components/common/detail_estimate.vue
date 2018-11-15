@@ -20,6 +20,7 @@ export default {
   }
  .estimate p {
           width: 100%;
+          height: rem(1000);
           line-height: rem(300);
           font-size: rem(40);
           text-align: center;

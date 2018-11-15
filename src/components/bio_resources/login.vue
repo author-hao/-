@@ -1,7 +1,7 @@
 <template>
     <!-- 登录 -->
     <div class="login">
-        <h2><span @click="Return" ><</span> 登录</h2>
+        <h2><span @click="Return" >&lt;</span> 登录</h2>
         <div>
               <label for="">用户名：</label>
               <input type="text" v-model='user' placeholder="用户名"><br>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { setCookie } from '@/components/util/cookie.js'
 export default {
   data () {
     return {
@@ -23,17 +24,23 @@ export default {
   },
   methods: {
     login_in () {
-      this.$http.post('/api/user/m/login', {
-        mobile: '1111',
-        user: this.user,
-        pwd: this.pass
-      }).then(res => {
+      let params = new URLSearchParams()
+      params.append('mobile', '13500000000')
+      params.append('pwd', this.pass)
+      params.append('deviceId', '88')
+      params.append('deviceName', '00')
+      this.$http.post('/api/user/m/login', params).then(res => {
         let { data } = res
-        console.log(data)
+        // console.log(data.data)
+        if (data.code === 0) {
+          // console.log(data.data.token)
+          setCookie('user', data.data, 30)
+          this.$router.back()
+        }
       })
     },
     Return () {
-        this.$router.back()
+      this.$router.back()
     }
   }
 }
@@ -68,7 +75,7 @@ export default {
           }
       }
       div {
-          margin-top: rem(50);
+          margin-top: rem(250);
           font-size: rem(40);
           label {
               display: inline-block;
@@ -85,8 +92,8 @@ export default {
           }
           button {
               display: block;
-              width: 50%;
-              height: rem(90);
+              width: 70%;
+              height: rem(110);
               margin: rem(50) auto;
               background: blue;
               color: #fff;

@@ -160,15 +160,16 @@
   box-sizing: border-box;
 }
 
-.details .details_commit {
+.details .details_commit_Btn {
   width: 100%;
-  height: 1.74815rem;
+  height: 1.77778rem;
   z-index: 5;
   background: #fff;
   border-top: 2px solid #dadada;
+  margin-top: 0.74074rem;
 }
 
-.details .details_commit button {
+.details .details_commit_Btn button {
   display: block;
   width: 100%;
   font-size: 0.54815rem;

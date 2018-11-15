@@ -145,12 +145,13 @@
       }
   
       // 尾部操作
-      .details_commit {
+      .details_commit_Btn {
           width: 100%;
-          height: rem(118);
+          height: rem(120);
           z-index: 5;
           background: #fff;
           border-top: 2px solid #dadada;
+          margin-top: rem(50);
           button {
             display: block;
             width: 100%;

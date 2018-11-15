@@ -1,7 +1,7 @@
 <template>
 <div class="details">
     <header class="details_title">
-        <span @click='Return'><i><</i></span>
+        <span @click='Return'><i>&lt;</i></span>
     </header>
     <section class="details_warpper">
       <scroller ref="myscroller">
@@ -49,7 +49,7 @@
         </div>
         </scroller>
     </section>
-    <footer class="details_commit">
+    <footer class="details_commit_Btn">
           <button>立即发起砍价，最低可砍到99元</button>
     </footer>
 </div>
@@ -84,10 +84,7 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.$refs.myscroller
-    })
-    let mySwiper = new Swiper('.banner', {
+    this.swiper = new Swiper('.banner', {
       loop: true,
       autoplay: {// 自动滑动
         disableOnInteraction: false
@@ -107,7 +104,9 @@ export default {
         this.deatil_data = data.data.basicInfo // 商品名称
         this.detail_content = data.data.content // 商品内容
       }
-      console.log(res)
+      setTimeout(() => {
+        this.scroll = this.$refs.myscroller
+      })
     })
   }
 }

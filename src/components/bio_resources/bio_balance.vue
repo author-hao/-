@@ -2,7 +2,7 @@
 <!-- 余额 -->
   <div class="bio_balance">
       <header class="balance_title">
-          <h3><span @click='Return'><i><</i></span></h3>
+          <h3><span @click='Return'><i>&lt;</i></span></h3>
 
           <div class="price_list">
                 <p>我的余额</p>

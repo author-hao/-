@@ -28,6 +28,33 @@
   width: 100%;
 }
 
+.bio_site .site_list .site_con dl {
+  width: 100%;
+  font-size: rem(30);
+  display: flex;
+}
+
+.bio_site .site_list .site_con dl dt span {
+  display: block;
+  width: rem(20);
+  height: 20;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.bio_site .site_list .site_con dl dt span i {
+  display: block;
+  width: 100%;
+  height: rem(20);
+  background: #000;
+}
+
+.bio_site .site_list .site_con dl dd {
+  display: flex;
+  justify-content: space-between;
+  font-size: rem(30);
+}
+
 .bio_site .set_site {
   width: 100%;
   padding: rem(41);

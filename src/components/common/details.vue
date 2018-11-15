@@ -1,7 +1,7 @@
 <template>
 <div class="details">
     <header class="details_title">
-        <span @click='Return'><i><</i></span>
+        <span @click='Return'><i>&lt;</i></span>
     </header>
     <section class="details_warpper">
       <scroller ref="myScroller">
@@ -16,18 +16,24 @@
           </div>
 
            <!-- 普通 -->
-            <div v-if='!title' class="details_data">
+            <div v-if='!title' class="details_data_pu">
                 <h3>{{deatil_data.name}}</h3>
                 <p>{{ deatil_data.characteristic }}</p>
                 <ul>
                     <li>
-                        <span>￥{{ deatil_data.pingtuanPrice }}</span>
+                        <span>￥{{ deatil_data.originalPrice }}</span>
                         <span>￥{{ deatil_data.originalPrice }}</span>
                     </li>
                     <li>
                         已售 {{ deatil_data.stores }}
                      </li>
                 </ul>
+                <h2></h2>
+                <div @click='commonShow2' class="putong_xuanze">
+                  <p>选择规格：选择版本选择服务</p>
+                  <span>></span>
+                </div>
+                <h2></h2>
             </div>
 
       <!-- /////////////////////////////////////////////////////////////////////////////// -->
@@ -108,7 +114,7 @@
             <li class="iocn">
                   <i class="iconfont icon-kefu"></i>
             </li>
-            <li class="iocn">
+            <li class="iocn" @click='cart_shoppng'>
                 <i class="iconfont icon-gouwuche"></i>
                 <span>{{ cartNum }}</span>
             </li>
@@ -157,13 +163,11 @@
                   <p>选择版本</p>
                   <ul>
 
-                      <li class="li">授权版（加密版本）</li>
-                      <li>开发板（未加密版本）</li>
+                     <li class="li">{{ category.name }}</li>
                   </ul>
                   <p>选择服务</p>
                   <ol>
-                      <li class="fuwu">不要服务</li>
-                      <li>部署上线一条龙服务</li>
+                       <li :class="{'fuwu':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' @click='setId(item.id)' :key='item.id'>{{ item.name }}</li>
                   </ol>
                   <dl class="num">
                       <dt>
@@ -177,7 +181,7 @@
                   </dl>
               </div>
               <footer class="mai">
-                  <button>立即购买</button>
+                  <button @click='goumai'>立即购买</button>
               </footer>
           </div>
     </div>
@@ -196,14 +200,12 @@
                   </dl>
                   <p>选择版本</p>
                   <ul>
-
-                      <li class="li">授权版（加密版本）</li>
-                      <li>开发板（未加密版本）</li>
+                      <li class="li">{{ category.name }}</li>
                   </ul>
-                  <p>选择服务</p>
+                  <p>选择样式</p>
                   <ol>
-                      <li class="fuwu">不要服务</li>
-                      <li>部署上线一条龙服务</li>
+                      <li :class="{'fuwu':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' :key='item.id' @click='setId(item.id)' >{{ item.name }}</li>
+
                   </ol>
                   <dl class="num">
                       <dt>
@@ -234,25 +236,35 @@
                           <span>￥{{ deatil_data.originalPrice }}</span>
                       </dd>
                   </dl>
+                   <p>选择版本</p>
+                  <ul>
+                      <li :class="{'ul':getPin == properties[0].id }" @click='setPin(properties[0])'>{{ properties[0].name }}</li>
+                  </ul>
+                  <p>选择样式</p>
+                  <ol>
+                      <li :class="{'ol':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' :key='item.id' @click='setId(item)' >{{ item.name }}</li>
+
+                  </ol>
                   <dl class="num">
                       <dt>
                           购买数量
                       </dt>
                       <dd>
-                          <span>-</span>
-                          <span>1</span>
-                          <span>+</span>
+                          <span @click='odd_up'>-</span>
+                          <span>{{ num }}</span>
+                          <span @click='add_in'>+</span>
                       </dd>
                   </dl>
             </div>
               <footer class="mai">
-                  <button>立即购买</button>
+                  <button @click='cheange_filter(deatil_data, num)'>立即购买</button>
               </footer>
         </div>
     </div>
 
     <!-- 普通加入购物车模态框 -->
-    <div v-if='general_kuang2' class="moTai_putong2">
+    <div v-if='general_kuang2'  class="moTai_putong2">
+
         <div class="general">
             <div class="motai_con">
                 <p><span @click='commonHide2'>X</span></p>
@@ -263,23 +275,39 @@
                           <span>￥{{ deatil_data.originalPrice }}</span>
                       </dd>
                   </dl>
+                   <p>选择版本</p>
+                  <ul>
+                      <li :class="{'ul2':getPin == properties[0].id }" @click='setPin(properties[0]) | cheange_filter'>{{ properties[0].name }}</li>
+                  </ul>
+                  <p>选择样式</p>
+                  <ol>
+                      <li :class="{'ol2':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' :key='item.id' @click='setId(item)' >{{ item.name }}</li>
+
+                  </ol>
                   <dl class="num">
                       <dt>
                           购买数量
                       </dt>
                       <dd>
-                          <span>-</span>
-                          <span>1</span>
-                          <span>+</span>
+                          <span @click='odd_up'>-</span>
+                          <span>{{ num }}</span>
+                          <span @click='add_in'>+</span>
                       </dd>
                   </dl>
             </div>
               <footer class="mai">
-                  <button @click="setItems(deatil_data)">加入购物车</button>
+                  <button @click="setItems(deatil_data, num)">加入购物车</button>
               </footer>
         </div>
     </div>
-
+    <!-- ////////////////////////////////////////////////////// -->
+    <!-- 弹框 -->
+    <div v-if='success' class='success_tan'>
+        <span>{{ inFo }}</span>
+    </div>
+    <div v-if='error' class='success_tan'>
+        <span>请选择商品、规格</span>
+    </div>
 </div>
 </template>
 
@@ -294,6 +322,7 @@ export default {
   },
   data () {
     return {
+      inFo: '',
       imgSrc: [], // 轮播图
       deatil_data: {}, // 商品数据
       detail_content: '', // 商品介绍内容
@@ -302,16 +331,36 @@ export default {
       general_kuang: false, // 普通模态框
       general_kuang2: false, // 普通模态框 加入购物车
       moT: false, // 拼团立即购买模态框
-      moTai: false // 一键拼团模态框
+      moTai: false, // 一键拼团模态框
+      success: false, // 成功弹框
+      error: false, // 错误弹框
+      // category: {}, // 商品参数
+      properties: [], // 商品样式选择
+      getPin: '', // 商品 id
+      getId: '', // 获取商品样式ID
+      num: 1, // 普通加入购物车数量
+      originalPrice: 0, // 挑选规格得到的价格
+      guiName: '', // 挑选的商品信息
+      chicun: '' // 挑选的尺寸
     }
   },
   computed: {
-      cartNum () {
-          return this.$store.state.cart_count
-      }
+    cartNum () {
+      return this.$store.state.cart_count
+    }
   },
   methods: {
-
+    add_in () { // 加加操作
+      this.num++
+    },
+    odd_up () { // 减减操作
+      if (this.num <= 1) return
+      this.num--
+    },
+    // 跳转到购物车
+    cart_shoppng () {
+      this.$router.push('/cart')
+    },
     Return () {
       this.$router.back()
     },
@@ -345,42 +394,176 @@ export default {
     moTaiShow () { // 开启一键开团模态框
       this.moTai = true
     },
-    moTaiHide () {  // 关闭一键开团模态框
+    moTaiHide () { // 关闭一键开团模态框
       this.moTai = false
     },
-    pintuan () {
-        this.$http.post('/api/shop/goods/pingtuan/open', {
-          token:  this.deatil_data.userId,
-          goodsId: this.deatil_data.id
-        }).then(res => {
-            console.log(res)
-        })
+    setId (id) {
+      this.getId = id.id
+      this.chicun = id.name
     },
-    setItems (item) { // 加入购物车
-        this.general_kuang2 = false
-        this.$store.commit('setListData', item)
+    setPin (id) {
+      this.getPin = id.id
+      this.guiName = id.name
+    },
+    // //////////////////////////////////////////////////
+    // 拼团
+    goumai () { // 立即购买
+      if (!this.getId) {
+        alert('请选择规格')
+      } else {
+        let query = new URLSearchParams()
+        query.append('goodsId', this.deatil_data.id)
+        query.append('propertyChildIds', this.getPin + ':' + this.getId)
+        this.$http.post('/api/shop/goods/price', query).then(res => {
+          console.log(res.data)
+          let { data } = res
+          if (data.code === 0) {
+            // this.$router.push('/')
+          }
+        })
+      }
+    },
+    pintuan () { // 拼团购买
+      this.$http.post('/api/shop/goods/pingtuan/open', {
+        token: this.deatil_data.userId,
+        goodsId: this.deatil_data.id
+      }).then(res => {
+        let { data } = res
+        console.log(data.data)
+      })
+    },
 
-        setTimeout(()=> {
-          alert('加入购物车成功')
-        }, 50)
+    // ////////////////////////////////////////////////////
+    // 普通
+    setItems (item, num) { // 加入购物车
+      if (!this.getId && !this.getPin && this.getPin === '') {
+        this.error = true
+        setTimeout(() => {
+          this.error = false
+        }, 1000)
+        return false
+      } else if (this.getPin !== '' && this.getPin !== '') {
+        let query = new URLSearchParams()
+        query.append('goodsId', this.deatil_data.id)
+        query.append('propertyChildIds', this.getPin + ':' + this.getId)
+        this.$http.post('/api/shop/goods/price', query).then(res => {
+          let {data} = res
+          if (data.code === 0) {
+            this.general_kuang2 = false
+            let JsonStr = data.data
+            JsonStr.remark = ''
+            JsonStr.inviter_id = 6938
+            JsonStr.name1 = this.guiName
+            JsonStr.name2 = this.chicun
+            JsonStr.logisticsType = 0
+            item.number = num
+            let items = Object.assign(item, JsonStr)
+            console.log(items)
+            this.$store.commit('setListData', items)
+            this.inFo = '加入购物车成功'
+            let a = setTimeout(() => {
+              this.success = true
+            }, 50)
 
+            setTimeout(() => {
+              clearTimeout(a)
+              this.success = false
+            }, 1000)
+          } else if (data.code === 405) {
+            this.inFo = data.msg
+            this.success = true
+            setTimeout(() => {
+              this.success = false
+            }, 1000)
+          } else {
+            this.inFo = data.msg
+            this.success = true
+            setTimeout(() => {
+              this.success = false
+            }, 1000)
+          }
+        })
+      } else {
+        this.inFo = '请继续选择规格'
+        this.success = true
+        setTimeout(() => {
+          this.success = false
+        }, 1000)
+      }
+    },
+    cheange_filter (item, num) { // 获取返回值 、、立即购买按钮
+      if (!this.getId && !this.getPin && this.getPin === '') {
+        this.error = true
+        setTimeout(() => {
+          this.error = false
+        }, 1000)
+        return false
+      } else if (this.getPin !== '' && this.getPin !== '') {
+        console.log(this.getId + ':' + this.getPin)
+        let query = new URLSearchParams()
+        query.append('goodsId', this.deatil_data.id)
+        query.append('propertyChildIds', this.getPin + ':' + this.getId)
+        this.$http.post('/api/shop/goods/price', query).then(res => {
+          let { data } = res
+          this.inFo = '商品正在生成'
+          this.success = true
+          if (data.code === 0) {
+            let sb = data.data
+            item.number = num
+            let a = {}
+            a.name1 = this.guiName
+            a.name2 = this.chicun
+            sb.inviter_id = 6938
+            sb.name = this.guiName
+            sb.name2 = this.chicun
+            sb.logisticsType = 0
+            let ss = Object.assign(item, a, sb) // 把多个对象合并成一个
+            console.log(data)
+            setTimeout(() => {
+              this.success = false
+              this.$store.commit('go_createOrder', ss)
+              this.$router.push('/confirm') // 直接跳到创建订单页
+            }, 500)
+          } else if (data.code === 405) {
+            this.inFo = data.msg
+            this.success = true
+            setTimeout(() => {
+              this.success = false
+            }, 1000)
+          } else {
+            this.success = false
+            alert('操作错误')
+          }
+        })
+      } else {
+        this.inFo = '请继续选择规格'
+        this.success = true
+        setTimeout(() => {
+          this.success = false
+        }, 1000)
+      }
+    },
+    // 立即购买
+    go_order (item) {
+      this.$store.commit('go_createOrder', item)
+      // this.$router.push('/confirm') // 直接跳到创建订单页
+    },
+
+    initSwiper () { // 轮播图
+      this.swiper = new Swiper('.banner', {
+        loop: true,
+        autoplay: {// 自动滑动
+          disableOnInteraction: false
+        },
+        pagination: {// 如果需要分页器
+          el: '.swiper-pagination'
+        },
+        observer: true,
+        observeParents: true
+      })
     }
-   },
+  },
   mounted () {
-    setTimeout(() => {
-      this.scroll = this.$refs.myScroller
-    }, 20)
-    let mySwiper = new Swiper('.banner', {
-      loop: true,
-      autoplay: {// 自动滑动
-        disableOnInteraction: false
-      },
-      pagination: {// 如果需要分页器
-        el: '.swiper-pagination'
-      },
-      observer: true,
-      observeParents: true
-    })
     let { id } = this.$route.query
     // console.log(id)
     this.$http.post('/api/shop/goods/detail?id=' + id).then(res => {
@@ -389,13 +572,20 @@ export default {
         if (data.data.basicInfo.pingtuan === true) {
           this.title = false
         }
-
         this.imgSrc = data.data.pics // 轮播图
         this.deatil_data = data.data.basicInfo // 商品名称
         this.detail_content = data.data.content // 商品内容
+        this.properties = data.data.properties
+        // console.log(this.properties)
+        this.category = data.data.category
+        this.$nextTick(() => { // 数据加载完成，在执行轮播
+          this.initSwiper()
+        })
       }
-      console.log(res)
     })
+    setTimeout(() => { // 滚动
+      this.scroll = this.$refs.myScroller
+    }, 20)
   }
 }
 </script>

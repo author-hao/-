@@ -23,22 +23,21 @@ import Bargain from '@/components/modelu/bargain'
 import Biobalance from '@/components/bio_resources/bio_balance'
 import BioSite from '@/components/bio_resources/bio_site'
 import Login from '@/components/bio_resources/login'
-
+import ThemeDetail from '@/components/center/themeDetail'
+import SuccessOrder from '@/components/order/success_order'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Index',
       component: Index,
-      redirect: '/list',
       children: [
         {
-          path: '/list', // 首页列表
+          path: '/', // 首页列表
           component: List,
-          meta: { keepAlive: true }
+          meta: { keepAlive: true, title: '首页' }
         },
         {
           path: '/classification', // 分类
@@ -52,8 +51,7 @@ export default new Router({
         },
         {
           path: '/personal', // 个人中心
-          component: PersonalData,
-          meta: { keepAlive: true }
+          component: PersonalData
         }
       ]
     },
@@ -126,7 +124,18 @@ export default new Router({
     },
     {
       path: '/login', // 登录
-      component: Login
+      component: Login,
+      meta: { title: 'login' }
+    },
+    {
+      path: '/themeDetail/:id?', // 主题详情
+      component: ThemeDetail
+    },
+    {
+      path: '/success', // 订单创建成功
+      component: SuccessOrder
     }
   ]
 })
+
+export default router

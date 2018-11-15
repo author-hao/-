@@ -29,14 +29,14 @@
   height: 1.48148rem;
   border-radius: 50%;
   padding: 0.1037rem;
-  border: 1px solid #f9fffd;
+  border: 1px solid #999;
 }
 
 .theme > h3 > span i {
   display: block;
   width: 100%;
   height: 100%;
-  line-height: 1.48148rem;
+  line-height: 1.33333rem;
   text-align: center;
   color: #3d3d3d;
   border-radius: 100%;
@@ -55,12 +55,12 @@
 
 .theme > .theme_con .theme_list .theme_list_con {
   width: 100%;
+  overflow: auto;
 }
 
 .theme > .theme_con .theme_list .theme_list_con > .list_con {
   width: 155%;
   display: flex;
-  overflow: auto;
   padding: 0.22222rem;
 }
 
@@ -109,10 +109,10 @@
 }
 
 .theme > .theme_con .theme_list .list_tese > ol > li {
-  width: 95%;
-  margin: 0.22222rem auto;
+  width: 100%;
+  margin: 0.74074rem auto;
   height: 7.80741rem;
-  padding: 0 0.31111rem;
+  padding: 0 0.74074rem;
   box-sizing: border-box;
   position: relative;
 }
@@ -120,14 +120,16 @@
 .theme > .theme_con .theme_list .list_tese > ol > li img {
   width: 100%;
   height: 100%;
+  font-size: 0.44444rem;
 }
 
 .theme > .theme_con .theme_list .list_tese > ol > li > a {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 0.74074rem;
   display: block;
-  width: 100%;
+  width: 90%;
+  padding: 0 0.31111rem;
   text-align: center;
   height: 100%;
   background: rgba(9, 9, 9, 0.3);
@@ -144,6 +146,9 @@
   color: #f9efee;
   padding-top: 0.54815rem;
   margin-bottom: 0.60741rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .theme > .theme_con .theme_list .list_tese > ol > li > a span {

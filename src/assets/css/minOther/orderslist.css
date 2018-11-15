@@ -47,4 +47,5 @@
 .orderslist .site_title ul li .router-link-active {
   color: #c11724;
   border-bottom: 0.11852rem solid #c11724;
+  text-decoration: none;
 }

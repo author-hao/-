@@ -21,7 +21,8 @@
       </header>
        <div class="swiper-container broadcast">
           <div class="swiper-wrapper">
-              <div class="swiper-slide"><i class="iconfont icon-laba"></i> 新上线更稳定的付费快递查询接口</div>
+
+              <div class="swiper-slide"><i class="iconfont icon-laba"></i> <marquee behavior="alternate" width='100%' height='37' direction="right"  scrolldelay="30" scrollamount="5" loop='-1'>新上线更稳定的付费快递查询接口</marquee></div>
           </div>
       </div>
       <div class="hr"></div>
@@ -33,18 +34,22 @@
             <li>
                <router-link to='/orderslist/staypayment'><i class="iconfont icon-qianbao"></i>
                 <p>待付款</p></router-link>
+                <span v-if='count_id_no_pay'>{{count_id_no_pay}}</span>
             </li>
             <li>
                 <router-link to='/orderslist/staysend'><i class="iconfont icon-daifahuo"></i>
                 <p>待发货</p></router-link>
+                 <span v-if='count_id_no_transfer'>{{count_id_no_transfer}}</span>
             </li>
             <li>
                 <router-link to='/orderslist/staygoods'><i class="iconfont icon-fahuo"></i>
                 <p>待收货</p></router-link>
+                <span v-if='count_id_no_confirm'>{{count_id_no_confirm}}</span>
             </li>
             <li>
                <router-link to='/orderslist/stayevaluate'><i class="iconfont icon-pingjia"></i>
                 <p>待评价</p></router-link>
+                <span v-if='count_id_no_reputation'>{{ count_id_no_reputation }}</span>
             </li>
         </ul>
         <div class="orders">
@@ -88,10 +93,17 @@
 <script>
 import '@/assets/font_iocn/iconfont.css'
 import BScroll from 'better-scroll'
+import { getCookie } from '@/components/util/cookie.js'
 export default {
   data () {
     return {
-      showLogin: true
+      showLogin: true,
+      count_id_no_transfer: 0, // 待发货订单数
+      count_id_no_pay: 0, // 未支付订单数
+      count_id_no_confirm: 0, // 待确认收货订单数
+      count_id_success: 0, // 交易完成订单数
+      count_id_close: 0, // 关闭的订单数
+      count_id_no_reputation: 0 // 待评价订单数
     }
   },
   created () {
@@ -99,9 +111,14 @@ export default {
       this.scroll = new BScroll(this.$refs.personalData_wapper, {
         click: true
       })
-    }, 10)
-    let cookie =  document.cookie
-    console.log(cookie)
+    }, 20)
+    let token = getCookie('token')
+    // console.log(token)
+    if (token) {
+      this.showLogin = false
+    } else {
+      this.showLogin = true
+    }
   },
   methods: {
     jifen () { // 签到页
@@ -110,6 +127,21 @@ export default {
     Orders () { // 订单列表
       this.$router.push('/orderslist/staypayment')
     }
+  },
+  mounted () { // 订单数据统计
+    let token = getCookie('token')
+    this.$http.get('/api/order/statistics?' + 'token=' + token).then(res => {
+      let { data } = res
+      // console.log(data)
+      if (data.code === 0) {
+        this.count_id_no_transfer = data.data.count_id_no_transfer
+        this.count_id_no_pay = data.data.count_id_no_pay
+        this.count_id_no_confirm = data.data.count_id_no_confirm
+        this.count_id_success = data.data.count_id_success
+        this.count_id_no_reputation = data.data.count_id_no_reputation
+        this.count_id_close = data.data.count_id_close
+      }
+    })
   }
 }
 </script>
