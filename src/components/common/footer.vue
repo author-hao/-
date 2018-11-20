@@ -17,6 +17,7 @@
           <li>
               <router-link to='/personal'><i class="iconfont icon-geren"></i>
               <span>个人</span></router-link>
+              <strong v-if='ONpay' >{{ ONpay }}</strong>
           </li>
       </ul>
   </div>
@@ -28,7 +29,19 @@ export default {
   computed: {
     cartNum () {
       return this.$store.state.cart_count
+    },
+    ONpay () {
+    	return this.$store.state.payNum
     }
+  },
+  mounted () {
+  	let token =  this.$cookie.get('token')
+    this.$http.get(global.data.api + '/order/statistics?' + 'token=' + token).then(res => {
+      let { data } = res
+      if (data.code === 0) {
+        this.$store.commit('onPaySize', data.data.count_id_no_pay)
+      }
+    })
   }
 }
 </script>
@@ -57,6 +70,7 @@ export default {
   }
   .footer ul li a {
        color: #7d7d7d;
+       -webkit-tap-highlight-color:#fff;
   }
   .footer ul li a:hover {
       text-decoration: none;
@@ -85,5 +99,6 @@ export default {
   .footer ul li .router-link-active {
       color: #a42a2a;
       text-decoration: none;
+      background:#fff;
   }
 </style>

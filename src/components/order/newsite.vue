@@ -13,16 +13,18 @@
                   <label for="">手机号</label><input type="text" v-model='mobile' placeholder="11位手机号">
               </li>
               <li>
-                  <label for="">选择地区</label>
-                  <select >
+                  <label>选择地区</label>
+                  <select @change='sheng' v-model='province'>
                       <option value="">请选择</option>
-                      <option v-for='(item, i) in shengfen' :key='i'  value="item.id">{{item.name}}</option>
+                      <option v-for='item in shengfen' :key='item.id' :value="item">{{item.name}}</option>
                   </select>
-                  <select name="" id="">
+                  <select @change='Citys' v-model='cityS'>
                       <option value="">请选择</option>
+                      <option v-for='item in city' :value="item" :key='item.id'>{{ item.name }}</option>
                   </select>
-                  <select name="" id="">
+                  <select v-model='region'>
                       <option value="">请选择</option>
+                      <option v-for='item in quxian' :key='item.id' :value="item">{{ item.name }}</option>
                   </select>
               </li>
               <li>
@@ -45,14 +47,18 @@ import { getCookie } from '@/components/util/cookie.js'
 export default {
   data () {
     return {
-      shengfen: [],
+      shengfen: [], // 省份列表
+      city: [], // 城市列表
+      quxian: [], // 区县列表
       address: '', // 详细地址
-      cityId: '750001', // 所属城市编码
       code: '', // 邮编
       linkMan: '', // 联系人
       mobile: '', // 手机号码
-      provinceId: '750001', // 所属省份编码
-      token: getCookie('token') // 登录接口返回的token
+      token: getCookie('token'), // 登录接口返回的token
+      province: '', // 省份
+      cityS: '', // 城市
+      region: '', // 区县
+      isDefault: true // 设置为默认地址
     }
   },
   mounted () {
@@ -65,34 +71,61 @@ export default {
     },
     getShengfen () {
       this.$http.post('https://api.it120.cc/common/region/province').then(res => {
-        console.log(res.data.data)
         let { data } = res
         if (data.code === 0) {
           this.shengfen = data.data
         } else {
-          alert('跨域了')
+          alert('出错了')
         }
       })
     },
+    sheng () {
+      let id = this.province.id
+      this.cityS = ''
+      this. region = ''
+      this.$http.post('https://api.it120.cc/common/region/child', 'pid=' + id).then(res => {
+        let { data } = res
+        if (data.code === 0) {
+            this.city = data.data
+          }
+      })
+    },
+    Citys () {
+      let id = this.cityS.id
+      this.$http.post('https://api.it120.cc/common/region/child', 'pid=' + id).then(res => {
+        let { data } = res
+        // console.log(res)
+        if (data.code === 0) {
+            this.quxian = data.data
+          }
+      })
+    },
     setSite () {
+      if (!this.address & !this.code & !this.cityS & !this.linkMan ) {
+          alert('请完善资料')
+          return
+      } else {
       let params = new URLSearchParams() // query 请求方式
       params.append('address', this.address)
-      params.append('cityId', this.cityId)
+      params.append('cityId', this.cityS.id)
       params.append('code', this.code)
       params.append('linkMan', this.linkMan)
       params.append('mobile', this.mobile)
-      params.append('provinceId', this.provinceId)
+      params.append('provinceId', this.province.id)
       params.append('token', this.token)
-      this.$http.post('/api/user/shipping-address/add', params).then(res => {
+      params.append('districtId', this.region.id)
+      params.append('isDefault', this.isDefault)
+      this.$http.post(global.data.api + '/user/shipping-address/add', params).then(res => {
         let { data } = res
-        console.log(data)
+        // console.log(data)
         if (data.code === 0) {
           this.$store.commit('setDizhi', data.data)
           this.$router.back()
-        } else if (data.code === 2000) {
-          this.$router.replace('/login')
+        } else {
+          alert('请完善资料啊')
         }
       })
+    }
     }
   }
 }

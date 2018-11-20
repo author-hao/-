@@ -1,4 +1,5 @@
 <template>
+	<!-- 砍价页面 -->
 <div class="details">
     <header class="details_title">
         <span @click='Return'><i>&lt;</i></span>
@@ -20,8 +21,8 @@
                 <p>{{ deatil_data.characteristic }}</p>
                 <ul>
                     <li>
-                        <span>底价 <i>￥{{ deatil_data.pingtuanPrice }}</i></span>
-                        <span>原价 ￥{{ deatil_data.originalPrice }}</span>
+                        <span>底价 <i>￥{{ kanjiaPrice.minPrice }}</i></span>
+                        <span>原价 ￥{{ kanjiaPrice.originalPrice }}</span>
                     </li>
                     <li>
                         库存 {{ deatil_data.stores }}
@@ -50,7 +51,7 @@
         </scroller>
     </section>
     <footer class="details_commit_Btn">
-          <button>立即发起砍价，最低可砍到99元</button>
+          <button @click='go_kanjia'>立即发起砍价，最低可砍到99元</button>
     </footer>
 </div>
 </template>
@@ -68,6 +69,7 @@ export default {
     return {
       imgSrc: [],
       deatil_data: {},
+      kanjiaPrice: {},
       detail_content: '',
       isShow: true
     }
@@ -81,10 +83,20 @@ export default {
     },
     Hide () {
       this.isShow = false
-    }
-  },
-  mounted () {
-    this.swiper = new Swiper('.banner', {
+    },
+    go_kanjia () { // 进入砍价页面
+      let list = Object.assign( this.deatil_data, this.kanjiaPrice)
+      console.log(list)
+      this.$store.commit('kanjiaData', list)
+      this.$router.replace('/kanjiaDetail')
+    },
+    MyScroll () {
+      this.$nextTick(() => {
+        this.scroll = this.$refs.myscrolle
+      })
+    },
+    MySwiper () { // 滚动
+      this.swiper = new Swiper('.banner', {
       loop: true,
       autoplay: {// 自动滑动
         disableOnInteraction: false
@@ -95,19 +107,38 @@ export default {
       observer: true,
       observeParents: true
     })
-    let { id } = this.$route.query
+    }
+  },
+  mounted () {
+    let { id } = this.$route.query // 详情
     // console.log(id)
-    this.$http.post('/api/shop/goods/detail?id=' + id).then(res => {
+    this.$http.post(global.data.api + '/shop/goods/detail?id=' + id).then(res => {
       let { data } = res
+      console.log(data)
       if (data.code === 0) {
         this.imgSrc = data.data.pics // 轮播图
         this.deatil_data = data.data.basicInfo // 商品名称
         this.detail_content = data.data.content // 商品内容
       }
-      setTimeout(() => {
-        this.scroll = this.$refs.myscroller
+      this.$nextTick(() => {
+        this.MySwiper()
       })
+      this.MyScroll()
     })
+    // 砍价详情
+    this.$http.get(global.data.api + '/shop/goods/kanjia/list').then(res => {
+    	let { data } = res
+    	console.log(data.data.result)
+    	if (data.code === 0) {
+        let { id } = this.$route.query
+
+    	  let aa = data.data.result.filter(i => {
+    		  return  i.goodsId == id
+        })
+        this.kanjiaPrice = JSON.parse(JSON.stringify(aa).replace(/\[|]/g,'')) // 正则去掉数组中括号 []
+         console.log(this.kanjiaPrice)
+    	}
+   })
   }
 }
 </script>

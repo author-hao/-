@@ -6,13 +6,13 @@
 
       <!-- 页尾 -->
       <Footer />
-
   </div>
 </template>
 
 <script>
 import Footer from '@/components/common/footer'
 export default {
+  name: 'index',
   components: {
     Footer
   }
@@ -27,11 +27,12 @@ html, body, .index {
     display: flex;
     flex-direction: column;
 }
-
+.index {
+  
+}
 .index section {
     width: 100%;
     flex: 1;
     overflow: auto;
 }
-
 </style>

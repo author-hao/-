@@ -61,7 +61,7 @@
 
        <!-- 删除 -->
        <footer v-if="cart_data.length" v-show="updelete" class="deleteAll">
-           <div >
+           <div @click='checkedAll(isShow)'>
               <input type="checkbox" @change='checkedAll(isShow)' v-model="isShow" id='checked2'><label for="checked2"></label>
               <span>全选</span>
           </div>
@@ -110,25 +110,27 @@ export default {
       return zjnum
     }
   },
-  mounted () {
-    console.log(this.getCookie)
-    this.$http.post('/api/shop/goods/list').then(res => {
+  mounted () { // 猜你喜欢列表
+    this.$http.post(global.data.api + '/shop/goods/list').then(res => {
       let { data } = res
       if (data.code === 0) {
         this.common_list = data.data.filter(item => {
           return item.recommendStatusStr === '普通'
         })
+        this.$nextTick(() => {
+         this.ScrollBar() 
+         this.scroll.on('touchEnd', () => {
+         	if (this.scroll.y <= this.scroll.maxScrollY) {
+         		this.scroll.refresh()
+         	}
+         })
+         setTimeout(() => {
+         	this.common_list
+         	this.scroll.refresh()
+         }, 20)
+       })
       }
     })
-    setTimeout(() => {
-      this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.myCart, {
-          tap: true,
-          click: true
-        })
-        this.scroll.refresh()
-      })
-    }, 500)
   },
   methods: {
     updata_resover () { // 切换header 编辑按钮
@@ -139,6 +141,7 @@ export default {
       this.$store.commit('create_order')
     },
     adds (id) { // 数量加加
+      console.log(id)
       this.$store.commit('add', id)
     },
     odds (id) { // 数量减减
@@ -155,14 +158,21 @@ export default {
     delList () {
       this.$store.commit('delete')
       if (this.cart_data.length === 0) this.isShow = false
-    }
+    },
+	ScrollBar () {
+    this.scroll = new BScroll(this.$refs.myCart, {
+        scrollY: true,
+        tap: true,
+        click: true,
+    })
+	}
 
   },
-  watch: {
+  watch: { // 监听 CheckBox
     checked () {
       this.isShow = this.checked === true ? this.checked : false
     }
-  }
+  },
 }
 </script>
 

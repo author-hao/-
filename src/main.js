@@ -6,7 +6,7 @@ import router from './router'
 import ElementUI, { Loading } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './config/global.js'
-// import { setCookie, getCookie, delCookie } from '@/components/util/cookie.js'
+
 import VueLazyload from 'vue-lazyload'
 import 'swiper/dist/css/swiper.css'
 import 'swiper/dist/js/swiper.min.js'
@@ -14,6 +14,10 @@ import './assets/css/app.scss'
 import VueScroller from 'vue-scroller'
 import axios from 'axios'
 import store from './store/store' // Vuex
+import VueCookie from 'vue-cookie'
+
+Vue.use(VueCookie) // 使用cookie
+// console.log(global.data.api)
 Vue.use(VueScroller)
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
@@ -22,6 +26,17 @@ Vue.config.productionTip = false
 let loadingInstance
 
 axios.interceptors.request.use(function (config) {
+    let token = VueCookie.get('token')
+    // 检测登录
+       axios.post(global.data.api + '/user/check-token', 'token=' + token).then(res => {
+          if (data.code === 0) {
+              next()
+          } else {
+              next('/login')
+          }
+      })
+   
+  
   // 请求数据时 开启 lodding 动画
   loadingInstance = Loading.service({ fullscreen: true })
   return config
@@ -37,13 +52,22 @@ axios.interceptors.response.use(function (response) {
   }, 1)
   return response
 }, function (error) {
-  loadingInstance.close()
+  setTimeout(() => {
+    loadingInstance.close()
+  }, 1)
   return Promise.reject(error)
 })
 
-// 定义全局钩子,在路由跳转时做相应的处理(替换title)
 router.beforeEach((to, from, next) => {
-  /* 路由发生变化修改页面title */
+  let Token = VueCookie.get('token')
+  if (to.fullPath == '/') {
+    if (!Token) {
+      next('/login')
+    } else {
+      next()
+    }
+  }
+
   if (to.meta.title) {
     document.title = to.meta.title
   }
@@ -63,3 +87,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+

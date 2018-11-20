@@ -20,7 +20,7 @@
                 <span>砍价</span></router-link>
             </li>
             <li>
-                <router-link to=''><i class='iconfont icon-deng'></i>
+                <router-link to='/theme'><i class='iconfont icon-deng'></i>
                 <span>专栏</span></router-link>
             </li>
         </ul>
@@ -90,39 +90,32 @@
 import Shuffling from './shuffling'
 import BScroll from 'better-scroll'
 import { getCookie } from '@/components/util/cookie.js'
+
 export default {
+  name: 'list',
   components: {
     Shuffling
   },
   data () {
     return {
       listData: [],
-      kanjia: [],
-      tuijian: [],
-      zhuti: []
+      kanjia: [], // 砍价
+      tuijian: [], // 推荐
+      zhuti: [] // 主题
     }
   },
-  created () {
-    let _this = this
-    this.$http.get('/api//shop/goods/list').then(res => {
-      let { data } = res
-      if (data.code === 0) {
-        this.listData = data.data
-        _this.kanjia = data.data.filter(item => {
-          return item.kanjia === true
-        })
-        _this.tuijian = data.data.filter(item => {
-          return item.recommendStatusStr === '推荐'
-        })
-      }
-    })
+  created () { // 拼团
     // 主题
-    this.$http.get('/api/cms/news/list').then(res => {
+    this.$http.get(global.data.api + '/cms/news/list').then(res => {
       let { data } = res
       if (data.code === 0) {
         this.zhuti = data.data
       }
       // console.log(data)
+    })
+    // 砍价商品
+    this.$http.get(global.data.api + '/shop/goods/kanjia/list').then(res => {
+      // console.log(res)
     })
   },
   methods: {
@@ -137,33 +130,58 @@ export default {
         path: '/bargaindetail',
         query: { id: id }
       })
+    },
+    Scrollbar () { 
+      let Zhuti = document.getElementsByClassName('zhuti')[0]
+          Zhuti.scroll = new BScroll(this.$refs.zhuti, {
+            scrollY: false,
+            scrollX: true, // 横向滚动
+            click: true,
+            probeType: 2, // 派发滚动事件
+            bounce: { // 当滚动超过边缘的时候会有一小段回弹动画, false关闭
+              left: false,
+              right: false
+            }
+          })
+    
+         this.scroll = new BScroll(this.$refs.wrapper, {
+	        scrollY: true, // 纵向滚动
+	        click: true,
+	        probeType: 2 // 派发滚动事件
+	     })
+	     this.scroll.on('touchEnd', (pos) => {
+	     	
+	     	if (this.scroll.y <= this.scroll.maxScrollY) {
+	     		this.scroll.refresh()
+	     	}
+	     })
     }
   },
-  mounted () {
-    setTimeout(() => {
-      this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          scrollY: true, // 纵向滚动
-          click: true,
-          bounce: {
-            top: true,
-            bottom: true
-          }
+  mounted () { // 获取砍价的商品	
+    this.$http.get(global.data.api + '/shop/goods/list').then(res => {
+      let { data } = res
+      if (data.code === 0) {
+        this.listData = data.data
+        // console.log(data)
+        this.kanjia = data.data.filter(i => {
+          return i.kanjia === true
         })
-        this.scroll = new BScroll(this.$refs.zhuti, {
-          scrollY: false,
-          scrollX: true, // 横向滚动
-          click: true,
-          bounce: { // 当滚动超过边缘的时候会有一小段回弹动画, false关闭
-            left: false,
-            right: true
-          }
+        this.tuijian = data.data.filter(item => {
+          return item.recommendStatusStr === '推荐'
         })
-      })
-    }, 20)
+      }
+
+    this.$nextTick(() => { 
+      this.Scrollbar()
+      setTimeout(() => {
+      	this.listData = this.listData
+		this.scroll.refresh()
+      }, 20)
+    })
+    })
   },
   beforeRouteLeave (to, from, next) {
-    let token = getCookie('token')
+    let token = getCookie('token')   
     if (token) {
       next()
     } else {
@@ -265,7 +283,7 @@ export default {
 
                               >img {
                                 width: 100%;
-                                background: #000;
+                                background: #f5f5ff;
                                 border-radius: rem(5);
                             }
                            }

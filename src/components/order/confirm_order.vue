@@ -6,13 +6,13 @@
               <span @click='Return'>〈</span>
               确认订单
           </h3>
-          <div v-if='!siteData'>
+          <div v-if='!siteData' class="confirm_site">
               <span @click='site'>+</span>
               <p @click='site'>新增收货地址</p>
               <i @click='site'>〉</i>
           </div>
-          <div v-else>
-              <span @click='site'>+</span>
+          <div v-else class="confirm_site2">
+              <span></span>
               <p @click='site_list'>{{ siteData }} </p>
               <i @click='site_list'>〉</i>
           </div>
@@ -53,15 +53,16 @@ import { getCookie } from '@/components/util/cookie.js'
 export default {
   data () {
     return {
-      siteData: '',
-      beizhu: '',
+      siteData: '', // 显示的地址
+      beizhu: '', // 备注
       token: getCookie('token'),
-      site_dizhi: {}
+      site_dizhi: {},
+      expireMinutes: 30 // 多少分钟关闭订单
     }
   },
   computed: {
     createOrder () {
-      return this.$store.state.order_list
+      return this.$store.state.order_list // 获取下单的数据
     },
     zjAll () {
       let zjnum = 0
@@ -78,7 +79,7 @@ export default {
     // 获取默认地址
     let params = new URLSearchParams()
     params.append('token', this.token)
-    this.$http.post('/api/user/shipping-address/default', params).then(res => {
+    this.$http.post(global.data.api + '/user/shipping-address/default', params).then(res => {
       let { data } = res
       if (data.code === 0) {
         this.siteData = data.data.linkMan + data.data.mobile
@@ -105,16 +106,20 @@ export default {
       this.$router.push('/site')
     },
     from_order () { // 生成订单
-      // this.$router.replace('/success')
-      this.$http.post('/api/order/create',
+      var site = this.$store.state.site_dizhi
+      console.log(this.createOrder)
+      this.$http.post(global.data.api + '/order/create',
         'token=' + this.token +
       '&goodsJsonStr=' + JSON.stringify(this.createOrder) +
-      '&expireMinutes=2'
+      '&expireMinutes=2&' + JSON.stringify(site)
       ).then(res => {
         let { data } = res
         console.log(data)
         if (data.code === 0) {
-          this.$store.commit('orderOnpay', data.data)
+          let As = data.data
+          let creataData = { site, As }
+          console.log(creataData)
+          this.$store.commit('orderOnpay', creataData)
           this.$router.replace('/success')
         } else {
           alert('出错了')

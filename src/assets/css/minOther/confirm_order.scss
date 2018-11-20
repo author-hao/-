@@ -18,7 +18,7 @@
             left: rem(58);
         }
      }
-     >div {
+     >.confirm_site {
         width: 100%;
         line-height: rem(138);
         border-bottom: 1px dashed #ccc;
@@ -49,6 +49,54 @@
             font-style: normal;
         }
      }
+    
+     .confirm_site2 {
+        width: 100%;
+        height: rem(138);
+        line-height: rem(138);
+        border-bottom: 1px dashed #ccc;
+        span {
+            float: left;
+            display: block;
+            width: rem(55);
+            height: rem(55);
+            border-radius: 50%;
+            margin-top: rem(40);
+            margin-left: rem(42);
+            color: #fff;
+            border: 1px solid #ccc;
+            line-height: rem(85);
+            text-align: center;
+            font-weight:blod;
+        }
+        span::after {
+            display: block;
+            width: rem(55);
+            height: rem(55);
+            font-size: rem(45);
+            line-height: rem(55);
+            content: '\2713';
+            background: red;
+            color: #fff;
+            border-radius: 50%;
+
+        }
+        p {
+            float: left;
+            font-size: rem(40);
+            color: #000;
+            margin-left: rem(40);
+        }
+        i {
+            float: right;
+            color: #c1c1c1;
+            margin-right: rem(45);
+            font-size: rem(29);
+            font-weight: bold;
+            font-style: normal;
+        }
+     }
+
   }
   .condirm_title {
     width: 100%;

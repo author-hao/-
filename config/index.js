@@ -11,18 +11,18 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'https://api.it120.cc/small4', // 设置你调用的接口域名和端口号 别忘了加http
-        secure: false, // 如果是https接口，需要配置这个参数
-        changeOrigin: true,
-        pathRewrite: { // 路径重写
-          '^/api': '/' // 这里理解成用‘/api'代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://localhost:3002/user/add'，直接写‘/api/goods/add'即可
-        }
-      }
+      // '/api': {
+      //   target: 'https://api.it120.cc/small4', // 设置你调用的接口域名和端口号 别忘了加http
+      //   secure: false, // 如果是https接口，需要配置这个参数
+      //   changeOrigin: true,
+      //   pathRewrite: { // 路径重写
+      //     '^/api': '/' // 这里理解成用‘/api'代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://localhost:3002/user/add'，直接写‘/api/goods/add'即可
+      //   }
+      // }
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '127.0.0.1', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
@@ -59,7 +59,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './', // 为了打包后路径显示正确，改为 ./
 
     /**
      * Source Maps

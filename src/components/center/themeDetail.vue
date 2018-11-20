@@ -27,7 +27,7 @@ export default {
   },
   mounted () {
     let { id } = this.$route.query
-    this.$http.get('/api/cms/news/detail?id=' + id).then(res => {
+    this.$http.get(global.data.api + '/cms/news/detail?id=' + id).then(res => {
       let { data } = res
       // console.log(data)
       if (data.code === 0) {

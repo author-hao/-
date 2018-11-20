@@ -119,7 +119,7 @@
                 <span>{{ cartNum }}</span>
             </li>
             <li class="iocn">
-                <i class="iconfont icon-kefu"></i>
+                <i class="iconfont icon-xingxing"></i>
             </li>
             <li @click='commonShow'>
                 <span>立即购买</span>
@@ -129,6 +129,8 @@
             </li>
         </ul>
     </footer>
+
+    <!-- 开团按钮模式 -->
     <footer v-if='title' class="kaituanBtn">
         <ol>
             <li>
@@ -148,7 +150,10 @@
         </ol>
     </footer>
 
-    <!-- 拼团模态框 立即购买模式-->
+
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+     <!-- 拼团模态框 立即购买模式-->
     <div v-if='moT' class="motai">
           <div class="motai_list">
               <div class="motai_con">
@@ -160,23 +165,24 @@
                           <span>￥{{ deatil_data.originalPrice }}</span>
                       </dd>
                   </dl>
-                  <p>选择版本</p>
-                  <ul>
-
-                     <li class="li">{{ category.name }}</li>
-                  </ul>
-                  <p>选择服务</p>
-                  <ol>
-                       <li :class="{'fuwu':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' @click='setId(item.id)' :key='item.id'>{{ item.name }}</li>
-                  </ol>
+                  <div class='pin-xuanze'>
+                  	  <p>选择版本</p>
+	                  <ul>
+	                     <li class="li">{{ category.name }}</li>
+	                  </ul>
+	                  <p>选择服务</p>
+	                  <ol>
+	                       <li :class="{'fuwu':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' @click='setId(item)' :key='item.id'>{{ item.name }}</li>
+	                  </ol>
+                  </div>
                   <dl class="num">
                       <dt>
                           购买数量
                       </dt>
                       <dd>
-                          <span>-</span>
-                          <span>1</span>
-                          <span>+</span>
+                          <span @click='odd_up'>-</span>
+                          <span>{{ num }}</span>
+                          <span @click='add_in'>+</span>
                       </dd>
                   </dl>
               </div>
@@ -198,23 +204,26 @@
                           <span>￥{{ deatil_data.pingtuanPrice }}</span>
                       </dd>
                   </dl>
-                  <p>选择版本</p>
-                  <ul>
-                      <li class="li">{{ category.name }}</li>
-                  </ul>
-                  <p>选择样式</p>
-                  <ol>
-                      <li :class="{'fuwu':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' :key='item.id' @click='setId(item.id)' >{{ item.name }}</li>
+                  <div class='xuanze'>
+                  	  <p>选择版本</p>
+	                  <ul>
+	                      <li class="li">{{ properties[0].name }}</li>
+	                  </ul>
+	                  <p>选择样式</p>
+	                  <ol>
+	                      <li :class="{'fuwu':getId === item.id }" v-for='(item) in childsCurGoods' :key='item.id' @click='setId(item)' >{{ item.name }}</li>
 
-                  </ol>
+	                  </ol>
+                  </div>
+                  
                   <dl class="num">
                       <dt>
                           购买数量
                       </dt>
                       <dd>
-                          <span>-</span>
-                          <span>1</span>
-                          <span>+</span>
+                          <span @click='odd_up'>-</span>
+                          <span>{{ num }}</span>
+                          <span @click='add_in'>+</span>
                       </dd>
                   </dl>
               </div>
@@ -224,7 +233,10 @@
           </div>
     </div>
 
-    <!-- 普通购买模态框 -->
+
+
+<!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!-- 普通立即购买模态框 -->
     <div v-if='general_kuang' class="moTai_putong">
         <div class="general">
             <div class="motai_con">
@@ -236,15 +248,17 @@
                           <span>￥{{ deatil_data.originalPrice }}</span>
                       </dd>
                   </dl>
-                   <p>选择版本</p>
-                  <ul>
-                      <li :class="{'ul':getPin == properties[0].id }" @click='setPin(properties[0])'>{{ properties[0].name }}</li>
-                  </ul>
-                  <p>选择样式</p>
-                  <ol>
-                      <li :class="{'ol':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' :key='item.id' @click='setId(item)' >{{ item.name }}</li>
+                   <div class='pu-xuanze'>
+                   	   <dl v-for='item in properties' :key='item.id'>
+                   	   		<dt>
+                   	   			 {{item.name }}
+                   	   		</dt>
+                   	   		<dd>
+                   	   			<span v-for='list in item.childsCurGoods' :key='list.id' :class="{'ol':getId === list.id }" @click='setId(list)'>{{ list.name }}</span>
+                   	   		</dd>
+                   	   </dl>
+                   </div>
 
-                  </ol>
                   <dl class="num">
                       <dt>
                           购买数量
@@ -275,15 +289,17 @@
                           <span>￥{{ deatil_data.originalPrice }}</span>
                       </dd>
                   </dl>
-                   <p>选择版本</p>
-                  <ul>
-                      <li :class="{'ul2':getPin == properties[0].id }" @click='setPin(properties[0]) | cheange_filter'>{{ properties[0].name }}</li>
-                  </ul>
-                  <p>选择样式</p>
-                  <ol>
-                      <li :class="{'ol2':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' :key='item.id' @click='setId(item)' >{{ item.name }}</li>
+                  <div class='xuanze2'>
+                  	  <p>选择版本</p>
+	                  <ul>
+	                      <li :class="{'ul2':getPin == properties[0].id }" @click='setPin(properties[0])'>{{ properties[0].name }}</li>
+	                  </ul>
+	                  <p>选择样式</p>
+	                  <ol>
+	                      <li :class="{'ol2':getId === item.id }" v-for='(item) in  properties[0].childsCurGoods' :key='item.id' @click='setId(item)' >{{ item.name }}</li>
 
-                  </ol>
+	                  </ol>
+                  </div>
                   <dl class="num">
                       <dt>
                           购买数量
@@ -300,6 +316,7 @@
               </footer>
         </div>
     </div>
+
     <!-- ////////////////////////////////////////////////////// -->
     <!-- 弹框 -->
     <div v-if='success' class='success_tan'>
@@ -328,7 +345,7 @@ export default {
       detail_content: '', // 商品介绍内容
       isShow: true, // 商品介绍和评价
       title: false, // 底部操作的切换
-      general_kuang: false, // 普通模态框
+      general_kuang: false, // 普通模态框 立即购买
       general_kuang2: false, // 普通模态框 加入购物车
       moT: false, // 拼团立即购买模态框
       moTai: false, // 一键拼团模态框
@@ -341,11 +358,12 @@ export default {
       num: 1, // 普通加入购物车数量
       originalPrice: 0, // 挑选规格得到的价格
       guiName: '', // 挑选的商品信息
-      chicun: '' // 挑选的尺寸
+      chicun: '', // 挑选的尺寸
+      token: this.$cookie.get('token')
     }
   },
   computed: {
-    cartNum () {
+    cartNum () { // 
       return this.$store.state.cart_count
     }
   },
@@ -361,7 +379,7 @@ export default {
     cart_shoppng () {
       this.$router.push('/cart')
     },
-    Return () {
+    Return () { // 返回
       this.$router.back()
     },
     // 商品介绍
@@ -371,18 +389,24 @@ export default {
     Hide () { // 商品评价
       this.isShow = false
     },
-    // 立即购买模式
+    // 拼团立即购买模式
     kuang () {
       this.moT = true
     },
-    // 关闭立即购买模式
+    // 拼团关闭立即购买模式
     kuangHide () {
       this.moT = false
     },
-    commonShow () { // 普通模式显示 模态框
+    moTaiShow () { // 开启一键开团模态框
+      this.moTai = true
+    },
+    moTaiHide () { // 关闭一键开团模态框
+      this.moTai = false
+    },
+    commonShow () { // 普通模式显示 模态框 立即购买
       this.general_kuang = true
     },
-    commonHide () { //  关闭普通模式模态框
+    commonHide () { //  关闭普通模式模态框 立即购买
       this.general_kuang = false
     },
     commonShow2 () { // 普通模式显示 加入购物车 模态框
@@ -391,17 +415,11 @@ export default {
     commonHide2 () { //  关闭普通模式加入购物车模态框
       this.general_kuang2 = false
     },
-    moTaiShow () { // 开启一键开团模态框
-      this.moTai = true
-    },
-    moTaiHide () { // 关闭一键开团模态框
-      this.moTai = false
-    },
-    setId (id) {
+    setId (id) { // 商品尺寸
       this.getId = id.id
       this.chicun = id.name
     },
-    setPin (id) {
+    setPin (id) { // 商品名
       this.getPin = id.id
       this.guiName = id.name
     },
@@ -410,26 +428,32 @@ export default {
     goumai () { // 立即购买
       if (!this.getId) {
         alert('请选择规格')
+        return 
       } else {
         let query = new URLSearchParams()
         query.append('goodsId', this.deatil_data.id)
         query.append('propertyChildIds', this.getPin + ':' + this.getId)
-        this.$http.post('/api/shop/goods/price', query).then(res => {
+        this.$http.post(global.data.api + '/shop/goods/price', query).then(res => {
           console.log(res.data)
           let { data } = res
           if (data.code === 0) {
-            // this.$router.push('/')
+            
           }
         })
       }
     },
     pintuan () { // 拼团购买
-      this.$http.post('/api/shop/goods/pingtuan/open', {
-        token: this.deatil_data.userId,
-        goodsId: this.deatil_data.id
-      }).then(res => {
+    	console.log(this.token)
+    	if (!this.getId) {
+    		alert('请选择规格')
+    		return
+    	}
+    	let query = new URLSearchParams()
+    	query.append('token', this.token)
+    	query.append('goodsId', this.deatil_data.id )
+      this.$http.post(global.data.api + '/shop/goods/pingtuan/open', query).then(res => {
         let { data } = res
-        console.log(data.data)
+        console.log(data)
       })
     },
 
@@ -446,7 +470,7 @@ export default {
         let query = new URLSearchParams()
         query.append('goodsId', this.deatil_data.id)
         query.append('propertyChildIds', this.getPin + ':' + this.getId)
-        this.$http.post('/api/shop/goods/price', query).then(res => {
+        this.$http.post(global.data.api + '/shop/goods/price', query).then(res => {
           let {data} = res
           if (data.code === 0) {
             this.general_kuang2 = false
@@ -458,7 +482,7 @@ export default {
             JsonStr.logisticsType = 0
             item.number = num
             let items = Object.assign(item, JsonStr)
-            console.log(items)
+            // console.log(items)
             this.$store.commit('setListData', items)
             this.inFo = '加入购物车成功'
             let a = setTimeout(() => {
@@ -491,19 +515,20 @@ export default {
         }, 1000)
       }
     },
+    // 普通立即购买
     cheange_filter (item, num) { // 获取返回值 、、立即购买按钮
-      if (!this.getId && !this.getPin && this.getPin === '') {
+      if (!this.getId) {
         this.error = true
         setTimeout(() => {
           this.error = false
         }, 1000)
         return false
-      } else if (this.getPin !== '' && this.getPin !== '') {
-        console.log(this.getId + ':' + this.getPin)
+      } else if (this.getId !== '') {
+        console.log(this.getId + ':' + this.properties[0].id)
         let query = new URLSearchParams()
         query.append('goodsId', this.deatil_data.id)
-        query.append('propertyChildIds', this.getPin + ':' + this.getId)
-        this.$http.post('/api/shop/goods/price', query).then(res => {
+        query.append('propertyChildIds', this.properties[0].id + ':' + this.getId)
+        this.$http.post(global.data.api + '/shop/goods/price', query).then(res => {
           let { data } = res
           this.inFo = '商品正在生成'
           this.success = true
@@ -566,8 +591,9 @@ export default {
   mounted () {
     let { id } = this.$route.query
     // console.log(id)
-    this.$http.post('/api/shop/goods/detail?id=' + id).then(res => {
+    this.$http.post(global.data.api + '/shop/goods/detail?id=' + id).then(res => {
       let { data } = res
+      console.log(data)
       if (data.code === 0) {
         if (data.data.basicInfo.pingtuan === true) {
           this.title = false
@@ -576,7 +602,7 @@ export default {
         this.deatil_data = data.data.basicInfo // 商品名称
         this.detail_content = data.data.content // 商品内容
         this.properties = data.data.properties
-        // console.log(this.properties)
+        console.log(this.properties)
         this.category = data.data.category
         this.$nextTick(() => { // 数据加载完成，在执行轮播
           this.initSwiper()

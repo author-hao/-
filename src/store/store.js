@@ -1,17 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { getCookie } from '@/components/util/cookie.js'
 
 Vue.use(Vuex)
 
 const Store = new Vuex.Store({
   state: {
+    cookie: getCookie('token'),
     scrollY: 0,
     cart_count: 0, // 购物车数量
     listData: [], // 加入购物车的数据
     site_dizhi: {}, // 地址
     listCont: 0,
     order_list: [], // 创建订单
-    order_on_pay: [] // 带支付订单
+    order_on_pay: {}, // 带支付订单
+    order_site: {}, // 带支付订单的地址
+    payNum: 0, // 待支付订单数
+    kanjiaId: {} // 砍价的详情
   },
   mutations: {
     changeScrollY (state, num) {
@@ -19,8 +24,25 @@ const Store = new Vuex.Store({
     },
     // 加入购物车
     setListData (state, item) {
-      console.log(item)
-      state.listData.push(item)
+      // console.log(item)
+      var flag = false
+      state.listData.forEach(items => {
+        if (items.id === item.id && items.propertyChildIds == item.propertyChildIds) {
+            flag = true
+        }
+      })
+      if(flag) {
+         state.listData.map(i => {
+            if(i.id === item.id) {
+                i.number += item.number
+            } 
+            return i
+          })
+         
+      } else {
+        state.listData.push(item)
+      }
+      
       let numAll = 0
       state.listData.forEach(item => {
         numAll += item.number
@@ -35,7 +57,7 @@ const Store = new Vuex.Store({
     add (state, id) {
       state.listData = state.listData.map(item => {
         if (item.id === id) {
-          item.number++
+          item.number ++
         }
         return item
       })
@@ -68,7 +90,7 @@ const Store = new Vuex.Store({
       state.listData.map(item => {
         if (item.id === id) {
           item.paixu = !item.paixu
-          // console.log(item.paixu)
+          console.log(item.paixu)
         }
         return item
       })
@@ -84,7 +106,7 @@ const Store = new Vuex.Store({
       state.order_list = [] // 每次传递新的数据前，先初始化在添加
       state.order_list.push(item)
     },
-    // 创建订单
+    // 下订单
     create_order (state) {
       state.order_list = state.listData.filter(item => {
         return item.paixu === true
@@ -95,13 +117,26 @@ const Store = new Vuex.Store({
         return i.paixu !== true
       })
       let Num = 0
-      state.listData.map(ii => {
+      state.listData.map(ii => { // 重新计算数量
         Num += ii.number
       })
       state.cart_count = Num
     },
-    orderOnpay (state, paly) { // 接收待支付的订单
-      state.order_on_pay.push(paly)
+    orderOnpay (state, { site, As }) { // 接收待支付的订单
+      // console.log(site, As)
+      // console.log(state.listData)
+      state.order_on_pay = As
+      state.order_site = site
+    },
+    onPaySize (state, num) {
+      state.payNum = num
+    },
+    getlistData (state, i) { // 获取本地存储
+
+        // state.listData = i
+    },
+    kanjiaData (state, data) { // 砍价数据
+        state.kanjiaId = data
     }
 
   }

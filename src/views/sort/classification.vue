@@ -1,4 +1,5 @@
 <template>
+  <!-- 分类 -->
   <div class="classification">
       <div class="search">
           <input type="text" placeholder="搜索商品"><i class="iconfont icon-fangdajing"></i>
@@ -21,7 +22,7 @@
                 <section class="sort_con">
                     <ul>
                         <li v-for='(item, i) in sortList' :key='i'>
-                            <router-link :to="{path: '/details', query:{ id: item.id }}"><img v-lazy="item.icon" alt="图片加载失败">
+                            <router-link :to="{path: '/sortDetail', query:{ id: item.id }}"><img v-lazy="item.icon" alt="图片加载失败">
                             <p>{{ item.name }}</p></router-link>
                         </li>
                     </ul>
@@ -75,7 +76,7 @@ export default {
       this.loading = true
       if (type && type !== 'all') {
         this.red = i
-        this.$http.get('/api/shop/goods/category/all').then(res => {
+        this.$http.get(global.data.api + '/shop/goods/category/all').then(res => {
           let { data } = res
           if (data.code === 0) {
             setTimeout(() => {
@@ -90,9 +91,9 @@ export default {
           }
         })
       } else {
-        this.$http.get('/api/shop/goods/category/all').then(res => {
+        this.$http.get(global.data.api + '/shop/goods/category/all').then(res => {
           let { data } = res
-          console.log(data)
+          // console.log(data)
           if (data.code === 0) {
             setTimeout(() => {
               this.loading = false

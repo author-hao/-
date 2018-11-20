@@ -1,19 +1,29 @@
 <template>
   <div class="success">
           <header class="cuccess_head">
-            <span @click='Return'>&lt;</span>
+            <span @click='Confrim'><i>&lt;</i></span>
               订单详情
           </header>
           <section class="success_wrapper">
               <div class="success_con">
                   <dl>
                       <dt>
-                          <img src="" alt="">
+                          <i class="iconfont icon-yue"></i>
                       </dt>
                       <dd>
-
+                          <div>商品总额：<span>￥{{ successData.amountReal }}</span></div>
+                          <p>订单号：<span>{{ successData.orderNumber }}</span></p>
                       </dd>
                   </dl>
+                  <ol>
+                      <li>
+                          <i class="iconfont icon-LC_icon_gps_line_1"></i>
+                      </li>
+                      <li>
+                          <p>{{ successSite.linkMan }} <span>{{ successSite.mobile }}</span></p>
+                          <span>{{ successSite.linkMan }}</span>
+                      </li>
+                  </ol>
               </div>
           </section>
         <footer class="zhifu">
@@ -21,6 +31,13 @@
         </footer>
         <div v-if='up' class="tanduang">
             <span>正在生成支付</span>
+        </div>
+        <div class='fanhui' v-if='out'>
+        	<div>
+        		<p>你还未支付，确认要离开吗？</p>
+        		<button @click='Return'>狠心离开</button>
+        		<button @click='delConfrim'>继续支付</button>
+        	</div>
         </div>
   </div>
 </template>
@@ -31,22 +48,37 @@ export default {
   data () {
     return {
       id: '',
-      successData: [],
-      up: false
+      up: false,
+      out: false
+    }
+  },
+  computed: {
+    successData () {
+      return this.$store.state.order_on_pay
+    },
+    successSite () {
+      return this.$store.state.order_site
     }
   },
   mounted () {
+    console.log(this.successData,  this.successSite)
     let params = new URLSearchParams()
     params.append('token', getCookie('token'))
-    params.append('id', 99762)
-    this.$http.post('/api/order/detail', params).then(res => {
+    params.append('id', 'OD1811161921926935')
+    this.$http.post(global.data.api + '/order/detail', params).then(res => {
       let { data } = res
-      console.log(data)
+      // console.log(data)
     })
   },
   methods: {
+  	Confrim () {
+  		this.out = true
+  	},
+  	delConfrim () {
+  		this.out = false
+  	},
     Return () {
-      this.$router.back()
+    	this.$router.back()
     },
     pay () {
       this.up = true

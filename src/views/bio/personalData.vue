@@ -10,11 +10,11 @@
                 </router-link>
             </div>
           <dl v-else>
-              <dt>
+              <dt @click='out'>
                   <img src="../../../static/images/img_06.png" alt="">
               </dt>
               <dd>
-                  <p>星辰闪烁</p>
+                  <p>{{ user }}</p>
                   <span @click='jifen'>积分：20</span>
               </dd>
           </dl>
@@ -22,7 +22,7 @@
        <div class="swiper-container broadcast">
           <div class="swiper-wrapper">
 
-              <div class="swiper-slide"><i class="iconfont icon-laba"></i> <marquee behavior="alternate" width='100%' height='37' direction="right"  scrolldelay="30" scrollamount="5" loop='-1'>新上线更稳定的付费快递查询接口</marquee></div>
+              <div class="swiper-slide"><i class="iconfont icon-laba"></i> <marquee behavior="scroll" width='100%' height='37' direction="right"  scrolldelay="30" scrollamount="5" loop='-1'>新上线更稳定的付费快递查询接口</marquee></div>
           </div>
       </div>
       <div class="hr"></div>
@@ -93,7 +93,7 @@
 <script>
 import '@/assets/font_iocn/iconfont.css'
 import BScroll from 'better-scroll'
-import { getCookie } from '@/components/util/cookie.js'
+import { getCookie, delCookie } from '@/components/util/cookie.js'
 export default {
   data () {
     return {
@@ -103,17 +103,27 @@ export default {
       count_id_no_confirm: 0, // 待确认收货订单数
       count_id_success: 0, // 交易完成订单数
       count_id_close: 0, // 关闭的订单数
-      count_id_no_reputation: 0 // 待评价订单数
+      count_id_no_reputation: 0, // 待评价订单数
+      user: '小苹果' // 用户名
     }
   },
   created () {
+  	this.user = getCookie('user')
     setTimeout(() => {
       this.scroll = new BScroll(this.$refs.personalData_wapper, {
         click: true
       })
     }, 20)
     let token = getCookie('token')
-    // console.log(token)
+    console.log(token)
+    if (token) {
+      this.showLogin = false
+    } else {
+      this.showLogin = true
+    }
+  },
+  updated () {
+    let token = getCookie('token')
     if (token) {
       this.showLogin = false
     } else {
@@ -126,13 +136,18 @@ export default {
     },
     Orders () { // 订单列表
       this.$router.push('/orderslist/staypayment')
+    },
+    out () { // 退出
+      this.$cookie.delete('token')
+      delCookie('user')
+      this.showLogin = true
+      this.$router.replace('/login')
     }
   },
   mounted () { // 订单数据统计
     let token = getCookie('token')
-    this.$http.get('/api/order/statistics?' + 'token=' + token).then(res => {
+    this.$http.get(global.data.api + '/order/statistics?' + 'token=' + token).then(res => {
       let { data } = res
-      // console.log(data)
       if (data.code === 0) {
         this.count_id_no_transfer = data.data.count_id_no_transfer
         this.count_id_no_pay = data.data.count_id_no_pay
@@ -140,6 +155,7 @@ export default {
         this.count_id_success = data.data.count_id_success
         this.count_id_no_reputation = data.data.count_id_no_reputation
         this.count_id_close = data.data.count_id_close
+        this.$store.commit('onPaySize', data.data.count_id_no_pay)
       }
     })
   }

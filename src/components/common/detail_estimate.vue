@@ -6,7 +6,12 @@
 
 <script>
 export default {
-
+    
+    mounted () {
+      this.$http.post(global.data.api + 'shop/goods/reputation', 'goodsId' + this.goodsId).then(rse => {
+        console.log(res)
+      })
+    }
 }
 </script>
 

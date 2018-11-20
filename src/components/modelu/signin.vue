@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('/api/score/sign/rules').then(res => {
+    this.$http.get(global.data.api + '/score/sign/rules').then(res => {
       let { data } = res
       if (data.code === 0) { // 获取积分规则
         if (data.data.length > 7) {
@@ -44,7 +44,7 @@ export default {
       }
     })
     // 积分明细记录
-    this.$http.post('/api/score/sign/logs').then(res => {
+    this.$http.post(global.data.api + '/score/sign/logs').then(res => {
       console.log(res)
     })
   },

@@ -55,7 +55,7 @@ export default {
         click: true
       })
     })
-    this.$http.get('/api//shop/goods/list').then(res => {
+    this.$http.get(global.data.api + '/shop/goods/list').then(res => {
       let { data } = res
       if (data.code === 0) {
         this.kanjia = data.data.filter(item => {

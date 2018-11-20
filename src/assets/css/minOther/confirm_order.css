@@ -23,13 +23,13 @@
   left: rem(58);
 }
 
-.confirm .confirm_head > div {
+.confirm .confirm_head > .confirm_site {
   width: 100%;
   line-height: rem(138);
   border-bottom: 1px dashed #ccc;
 }
 
-.confirm .confirm_head > div span {
+.confirm .confirm_head > .confirm_site span {
   display: inline-block;
   width: rem(85);
   height: rem(85);
@@ -42,13 +42,60 @@
   font-weight: blod;
 }
 
-.confirm .confirm_head > div p {
+.confirm .confirm_head > .confirm_site p {
   display: inline-block;
   font-size: rem(37);
   color: #000000;
 }
 
-.confirm .confirm_head > div i {
+.confirm .confirm_head > .confirm_site i {
+  float: right;
+  color: #c1c1c1;
+  margin-right: rem(45);
+  margin-top: rem(15);
+  font-size: rem(29);
+  font-weight: bold;
+  font-style: normal;
+}
+
+.confirm .confirm_head .confirm_site2 {
+  width: 100%;
+  line-height: rem(138);
+  border-bottom: 1px dashed #ccc;
+}
+
+.confirm .confirm_head .confirm_site2 span {
+  display: inline-block;
+  width: rem(55);
+  height: rem(55);
+  border-radius: 50%;
+  margin: rem(20) rem(42);
+  color: #fff;
+  border: 1px solid #ccc;
+  line-height: rem(85);
+  text-align: center;
+  font-weight: blod;
+}
+
+.confirm .confirm_head .confirm_site2 span::after {
+  display: inline-block;
+  width: rem(55);
+  height: rem(55);
+  font-size: rem(40);
+  line-height: rem(55);
+  content: '\2713';
+  background: red;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.confirm .confirm_head .confirm_site2 p {
+  display: inline-block;
+  font-size: rem(37);
+  color: #000000;
+}
+
+.confirm .confirm_head .confirm_site2 i {
   float: right;
   color: #c1c1c1;
   margin-right: rem(45);

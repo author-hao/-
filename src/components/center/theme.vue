@@ -55,7 +55,7 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('/api/cms/news/list').then(res => {
+    this.$http.get(global.data.api + '/cms/news/list').then(res => {
       let {data} = res
       if (data.code === 0) {
         // console.log(data.data)

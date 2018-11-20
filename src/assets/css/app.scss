@@ -1,5 +1,5 @@
 
-
+html,
 body,
 h1,
 h2,
@@ -112,8 +112,13 @@ table {
   border-spacing: 0;
 }
 
-
+html,body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: #fff;
+}
 html, body, #app {
+  margin:0;
+  padding:0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -141,4 +146,9 @@ html, body, #app {
 @import './minOther/theme.scss';       // 精选主题
 @import './minOther/themeDetail.scss';       // 精选主题详情
 @import './minOther/success_order.scss';       // 订单创建完成
+@import './minOther/kanjia_detail.scss';       // 砍价订单
+@import './minOther/sort_detail.scss';   // 分类详情
+@import './minOther/staypayment.scss';   // 待支付
+
+
 

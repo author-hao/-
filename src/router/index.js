@@ -8,6 +8,8 @@ import Cart from '@/views/shopping/cart'
 import PersonalData from '@/views/bio/personalData'
 import Details from '@/components/common/details'
 import BargainDetail from '@/components/common/bargain_detail'
+import KanjiaDetail from '@/components/common/kanjia_detail'
+import SortDetail from '@/components/common/sort_detail'
 
 import Signin from '@/components/modelu/signin'
 import ConfirmOrder from '@/components/order/confirm_order'
@@ -23,31 +25,35 @@ import Bargain from '@/components/modelu/bargain'
 import Biobalance from '@/components/bio_resources/bio_balance'
 import BioSite from '@/components/bio_resources/bio_site'
 import Login from '@/components/bio_resources/login'
+import Register from '@/components/bio_resources/register'
 import ThemeDetail from '@/components/center/themeDetail'
 import SuccessOrder from '@/components/order/success_order'
-Vue.use(Router)
+import BioKanjia from '@/components/bio_resources/bio_kanjia'
 
+Vue.use(Router)
 const router = new Router({
   mode: 'history',
+  base: '/',
   routes: [
     {
       path: '/',
       component: Index,
+      name: 'index',
       children: [
         {
           path: '/', // 首页列表
           component: List,
-          meta: { keepAlive: true, title: '首页' }
+          name: 'list',
+          meta: { title: '首页' }
         },
         {
           path: '/classification', // 分类
           component: Classification,
-          meta: { keepAlive: true }
+          meta: { title: '分类' }
         },
         {
           path: '/cart', // 购物车
-          component: Cart,
-          meta: { keepAlive: true }
+          component: Cart
         },
         {
           path: '/personal', // 个人中心
@@ -134,6 +140,22 @@ const router = new Router({
     {
       path: '/success', // 订单创建成功
       component: SuccessOrder
+    },
+    { 
+      path: '/kanjiaDetail', // 砍价详情
+      component: KanjiaDetail
+    },
+    {
+      path: '/sortDetail', // 分类详情
+      component: SortDetail
+    },
+    {
+      path: '/Mykanjia', // 我的砍价
+      component: BioKanjia
+    },
+    {
+      path: '/register', // 注册
+      component: Register
     }
   ]
 })

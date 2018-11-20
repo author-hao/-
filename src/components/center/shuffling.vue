@@ -54,7 +54,7 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('/api/banner/list').then(res => {
+    this.$http.get(global.data.api + '/banner/list').then(res => {
       let { data } = res
       if (data.code === 0) {
         this.banner_list = data.data

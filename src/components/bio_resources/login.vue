@@ -9,7 +9,7 @@
               <input type="password" v-model='pass' placeholder="请输入密码">
               <button @click='login_in'>登录</button>
         </div>
-
+        <p><button @click='outRegister'>没有账号，注册</button></p>
     </div>
 </template>
 
@@ -23,24 +23,32 @@ export default {
     }
   },
   methods: {
-    login_in () {
+    login_in () { // 登录数据
+      if (!pass) alert('请输入用户名和密码')
       let params = new URLSearchParams()
       params.append('mobile', '13500000000')
       params.append('pwd', this.pass)
       params.append('deviceId', '88')
       params.append('deviceName', '00')
-      this.$http.post('/api/user/m/login', params).then(res => {
+      this.$http.post(global.data.api + '/user/m/login', params).then(res => {
         let { data } = res
         // console.log(data.data)
         if (data.code === 0) {
           // console.log(data.data.token)
-          setCookie('user', data.data, 30)
+          this.$cookie.set('token', data.data.token, 30)
+          setCookie('token', data.data.token, 30)
+          setCookie('user', this.user)
           this.$router.back()
         }
       })
     },
-    Return () {
-      this.$router.back()
+    Return () { // 返回上一页
+      alert('请登录')
+      // this.$router.back()
+    },
+    outRegister () {
+      console.log('aa')
+      this.$router.push('/register') // 注册页面
     }
   }
 }
@@ -101,6 +109,20 @@ export default {
               outline: none;
               border-radius: rem(10);
           }
+      }
+      >p {
+        width:100%;
+        padding-top:rem(50);
+        text-align:right;
+        font-size:rem(40);
+        button {
+          padding: rem(10) rem(20);
+          height:rem(110);
+          color: red;
+          border: 0;
+          outline:none;
+          background: #fff;
+        }
       }
   }
 </style>
