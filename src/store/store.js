@@ -27,22 +27,20 @@ const Store = new Vuex.Store({
       // console.log(item)
       var flag = false
       state.listData.forEach(items => {
-        if (items.id === item.id && items.propertyChildIds == item.propertyChildIds) {
-            flag = true
+        if (items.id === item.id && items.propertyChildIds === item.propertyChildIds) {
+          flag = true
         }
       })
-      if(flag) {
-         state.listData.map(i => {
-            if(i.id === item.id) {
-                i.number += item.number
-            } 
-            return i
-          })
-         
+      if (flag) {
+        state.listData.map(i => {
+          if (i.id === item.id) {
+            i.number += item.number
+          }
+          return i
+        })
       } else {
         state.listData.push(item)
       }
-      
       let numAll = 0
       state.listData.forEach(item => {
         numAll += item.number
@@ -57,7 +55,7 @@ const Store = new Vuex.Store({
     add (state, id) {
       state.listData = state.listData.map(item => {
         if (item.id === id) {
-          item.number ++
+          item.number++
         }
         return item
       })
@@ -133,10 +131,10 @@ const Store = new Vuex.Store({
     },
     getlistData (state, i) { // 获取本地存储
 
-        // state.listData = i
+    // state.listData = i
     },
     kanjiaData (state, data) { // 砍价数据
-        state.kanjiaId = data
+      state.kanjiaId = data
     }
 
   }

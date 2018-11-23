@@ -92,7 +92,6 @@ import BScroll from 'better-scroll'
 import { getCookie } from '@/components/util/cookie.js'
 
 export default {
-  name: 'list',
   components: {
     Shuffling
   },
@@ -111,7 +110,6 @@ export default {
       if (data.code === 0) {
         this.zhuti = data.data
       }
-      // console.log(data)
     })
     // 砍价商品
     this.$http.get(global.data.api + '/shop/goods/kanjia/list').then(res => {
@@ -143,21 +141,19 @@ export default {
               right: false
             }
           })
-    
-         this.scroll = new BScroll(this.$refs.wrapper, {
-	        scrollY: true, // 纵向滚动
-	        click: true,
-	        probeType: 2 // 派发滚动事件
-	     })
-	     this.scroll.on('touchEnd', (pos) => {
-	     	
-	     	if (this.scroll.y <= this.scroll.maxScrollY) {
-	     		this.scroll.refresh()
-	     	}
-	     })
+      this.scroll = new BScroll(this.$refs.wrapper, {
+	    scrollY: true, // 纵向滚动
+	    click: true,
+	    probeType: 2 // 派发滚动事件
+	  })
+	  this.scroll.on('touchEnd', (pos) => {
+	    if (this.scroll.y <= this.scroll.maxScrollY) {
+	      this.scroll.refresh()
+	    }
+	  })
     }
   },
-  mounted () { // 获取砍价的商品	
+  mounted () { // 获取砍价的商品
     this.$http.get(global.data.api + '/shop/goods/list').then(res => {
       let { data } = res
       if (data.code === 0) {
@@ -171,17 +167,17 @@ export default {
         })
       }
 
-    this.$nextTick(() => { 
-      this.Scrollbar()
-      setTimeout(() => {
-      	this.listData = this.listData
-		this.scroll.refresh()
-      }, 20)
-    })
+      this.$nextTick(() => {
+        this.Scrollbar()
+        setTimeout(() => {
+          this.listData = this.listData
+          this.scroll.refresh()
+        }, 20)
+      })
     })
   },
   beforeRouteLeave (to, from, next) {
-    let token = getCookie('token')   
+    let token = getCookie('token')
     if (token) {
       next()
     } else {

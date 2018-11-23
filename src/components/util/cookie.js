@@ -21,8 +21,7 @@
 //   this.set(name, '', -1)
 // }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//
 
 // export function setCookie(cname, cvalue, exdays) {
 //             var d = new Date();
@@ -32,36 +31,28 @@
 //             console.log(d)
 //             console.log(document.cookie)
 //         }
+// 获取 cookie
+export function getCookie (cname) {
+  var name = cname + '='
+  var ca = document.cookie.split(';')
 
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i]
+    while (c.charAt(0) == ' ') c = c.substring(1)
+    if (c.indexOf(name) !== -1) return unescape(c.substring(name.length, c.length))
+  }
+  return ''
+}
 
-      //获取cookie
-      export function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-
-            for(var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while(c.charAt(0) == ' ') c = c.substring(1);
-                if(c.indexOf(name) != -1) return unescape(c.substring(name.length, c.length));
-            }
-            return "";
-        }
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+//
 
 // 设置cookie,增加到vue实例方便全局调用
 export function setCookie (name, value, expiredays) {
   var exdate = new Date()
   let a = exdate.setTime(exdate.getTime() + (expiredays * 1000 * 60 * 60 * 24))
   console.log(a, expiredays * 1000 * 60 * 60 * 24)
-  document.cookie = name + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString()) + "; path=/"
+  document.cookie = name + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString()) + '; path=/'
 };
-
-  
-
 
 // 获取 cookie
 // export function getCookie (name) {

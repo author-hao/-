@@ -7,7 +7,7 @@
           <div v-if='!noPayData.length'>
               还没有商品去购买吧
           </div>
-          <ul v-if='noPayData.length' class='Nopay_danhao' v-for='i in noPayData'>
+          <ul v-if='noPayData.length' class='Nopay_danhao' v-for='i in noPayData' :key='i.id'>
               <li>下单时间：{{ i.dateAdd }}
               <span>待支付</span></li>
               <li>订单号：{{ i.orderNumber }}</li>

@@ -38,12 +38,10 @@ const router = new Router({
     {
       path: '/',
       component: Index,
-      name: 'index',
       children: [
         {
           path: '/', // 首页列表
           component: List,
-          name: 'list',
           meta: { title: '首页' }
         },
         {
@@ -141,7 +139,7 @@ const router = new Router({
       path: '/success', // 订单创建成功
       component: SuccessOrder
     },
-    { 
+    {
       path: '/kanjiaDetail', // 砍价详情
       component: KanjiaDetail
     },

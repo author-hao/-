@@ -82,12 +82,12 @@ export default {
     sheng () {
       let id = this.province.id
       this.cityS = ''
-      this. region = ''
+      this.region = ''
       this.$http.post('https://api.it120.cc/common/region/child', 'pid=' + id).then(res => {
         let { data } = res
         if (data.code === 0) {
-            this.city = data.data
-          }
+          this.city = data.data
+        }
       })
     },
     Citys () {
@@ -96,36 +96,34 @@ export default {
         let { data } = res
         // console.log(res)
         if (data.code === 0) {
-            this.quxian = data.data
-          }
+          this.quxian = data.data
+        }
       })
     },
     setSite () {
-      if (!this.address & !this.code & !this.cityS & !this.linkMan ) {
-          alert('请完善资料')
-          return
+      if (!this.address & !this.code & !this.cityS & !this.linkMan) {
+        alert('请完善资料')
       } else {
-      let params = new URLSearchParams() // query 请求方式
-      params.append('address', this.address)
-      params.append('cityId', this.cityS.id)
-      params.append('code', this.code)
-      params.append('linkMan', this.linkMan)
-      params.append('mobile', this.mobile)
-      params.append('provinceId', this.province.id)
-      params.append('token', this.token)
-      params.append('districtId', this.region.id)
-      params.append('isDefault', this.isDefault)
-      this.$http.post(global.data.api + '/user/shipping-address/add', params).then(res => {
-        let { data } = res
-        // console.log(data)
-        if (data.code === 0) {
-          this.$store.commit('setDizhi', data.data)
-          this.$router.back()
-        } else {
-          alert('请完善资料啊')
-        }
-      })
-    }
+        let params = new URLSearchParams() // query 请求方式
+        params.append('address', this.address)
+        params.append('cityId', this.cityS.id)
+        params.append('code', this.code)
+        params.append('linkMan', this.linkMan)
+        params.append('mobile', this.mobile)
+        params.append('provinceId', this.province.id)
+        params.append('token', this.token)
+        params.append('districtId', this.region.id)
+        params.append('isDefault', this.isDefault)
+        this.$http.post(global.data.api + '/user/shipping-address/add', params).then(res => {
+          let { data } = res
+          if (data.code === 0) {
+            this.$store.commit('setDizhi', data.data)
+            this.$router.back()
+          } else {
+            alert('请完善资料啊')
+          }
+        })
+      }
     }
   }
 }

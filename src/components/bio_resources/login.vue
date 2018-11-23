@@ -4,7 +4,7 @@
         <h2><span @click="Return" >&lt;</span> 登录</h2>
         <div>
               <label for="">用户名：</label>
-              <input type="text" v-model='user' placeholder="用户名"><br>
+              <input type="text" v-model='user' placeholder="请输入手机号"><br>
               <label for="">密码：</label>
               <input type="password" v-model='pass' placeholder="请输入密码">
               <button @click='login_in'>登录</button>
@@ -24,23 +24,26 @@ export default {
   },
   methods: {
     login_in () { // 登录数据
-      if (!pass) alert('请输入用户名和密码')
-      let params = new URLSearchParams()
-      params.append('mobile', '13500000000')
-      params.append('pwd', this.pass)
-      params.append('deviceId', '88')
-      params.append('deviceName', '00')
-      this.$http.post(global.data.api + '/user/m/login', params).then(res => {
-        let { data } = res
-        // console.log(data.data)
-        if (data.code === 0) {
-          // console.log(data.data.token)
-          this.$cookie.set('token', data.data.token, 30)
-          setCookie('token', data.data.token, 30)
-          setCookie('user', this.user)
-          this.$router.back()
-        }
-      })
+      if (!this.pass && !this.user) {
+        alert('请输入用户名和密码')
+      } else {
+          this.$http.post(global.data.api + '/user/m/login?deviceId=007&deviceName=monkey&mobile=' + this.user + '&pwd=' + this.pass).then(res => {
+            let { data } = res
+            console.log(data)
+            var reg = /^1[3|4|5|7|8|9][0-9]{9}$/ // 手机号验证规则
+            if (data.code === 0) {
+            // console.log(data.data.token)
+            this.$cookie.set('token', data.data.token, 30)
+            setCookie('token', data.data.token, 30)
+            setCookie('user', this.user)
+             this.$router.push('/')
+          } else if (!reg.test(this.user)) {
+            alert('请输入正确手机号')
+          } else {
+            alert('密码错误')
+          }
+        })
+      }
     },
     Return () { // 返回上一页
       alert('请登录')
